@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DWM.ExSw.Addin.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="XMLMaterial" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Cardall\ASSISTENTES\configuracoesSW\Materiais</Value>
+    </Setting>
+    <Setting Name="User_Projetista" Type="System.String" Scope="User">
+      <Value Profile="(Default)">thalysson.santos</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
