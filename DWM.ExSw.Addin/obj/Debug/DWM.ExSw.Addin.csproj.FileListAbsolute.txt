@@ -21,3 +21,21 @@ C:\Users\engenharia01\Documents\ESTUDOS C#\DWM.ExSw.Addin\bin\Debug\main.png
 C:\Users\engenharia01\Documents\ESTUDOS C#\DWM.ExSw.Addin\bin\Debug\Resources\Icons\export_20x20.png
 C:\Users\engenharia01\Documents\ESTUDOS C#\DWM.ExSw.Addin\bin\Debug\Resources\Icons\atualizar_20x20.png
 C:\Users\engenharia01\Documents\ESTUDOS C#\DWM.ExSw.Addin\bin\Debug\Resources\Icons\salvar_20x20.png
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\obj\Debug\DWM.ExSw.Addin.csproj.AssemblyReference.cache
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\obj\Debug\DWM.ExSw.Addin.Properties.Resources.resources
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\obj\Debug\DWM.ExSw.Addin.setup.dimenssoes.resources
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\obj\Debug\DWM.ExSw.Addin.Config.mainconfig.resources
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\obj\Debug\DWM.ExSw.Addin.setup.materiaisData.resources
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\obj\Debug\DWM.TaskPaneHost.TaskpaneHostUI.resources
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\obj\Debug\DWM.ExSw.Addin.csproj.GenerateResource.cache
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\obj\Debug\DWM.ExSw.Addin.csproj.CoreCompileInputs.cache
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\obj\Debug\DWM.ExSw.Addin.dll
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\obj\Debug\DWM.ExSw.Addin.pdb
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\bin\Debug\main.png
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\bin\Debug\Resources\Icons\atualizar_20x20.png
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\bin\Debug\Resources\Icons\export_20x20.png
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\bin\Debug\Resources\Icons\salvar_20x20.png
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\bin\Debug\DWM.ExSw.Addin.dll.config
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\bin\Debug\DWM.ExSw.Addin.dll
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\bin\Debug\DWM.ExSw.Addin.pdb
+C:\Users\thaly\OneDrive\Documentos\GitHub\DWM.ExSw.Addin\DWM.ExSw.Addin\obj\Debug\DWM.ExSw.70DED186.Up2Date

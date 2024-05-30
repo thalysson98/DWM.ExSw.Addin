@@ -51,8 +51,8 @@ namespace DWM.TaskPaneHost
         {
             banco = new cardallData();
             materiais_bc = new DataMaterial();
-            XML_MATERIAIS = materiais_bc.lista_material(materiais_bc);
-            banco.Main();
+            //XML_MATERIAIS = materiais_bc.lista_material(materiais_bc);
+            //banco.Main();
 
             cardalcomands = new ClientComandsCardall();
             swComands = new swSpecialComands();

@@ -1,5 +1,6 @@
 ﻿using DWM.ExSw.Addin.DataSRV;
 using SolidWorks.Interop.sldworks;
+using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -49,6 +50,7 @@ namespace DWM.ExSw.Addin.Base
             string PadraoFicticio = @"^F\d{2}\.\d{3}\.\d{4}$";
             string Padraocomercial = @"^\d{6}\$";
 
+
             if (codigo != "")//Existe a propriedade codigo
             {
                 if (TextString != codigo)//Texto diferente da propriedade
@@ -68,11 +70,14 @@ namespace DWM.ExSw.Addin.Base
                 codigo = TextString;
             }
 
-
             if (TextString != model.GetTitle())//Texto escrito diferente do nome do arquivo
             {
-                err = 3;
-                //IMPOSSIVEL EXPORTAR E SALVAR
+                string extractString = model.GetTitle();
+                extractString  = extractString.ToUpper();
+                if(extractString.Substring(extractString.LastIndexOf('.')) != ".SLDPRT") { err = 3; }
+                if (extractString.Substring(extractString.LastIndexOf('.')) != ".SLDASM") { err = 3; }
+                if (extractString.Substring(extractString.LastIndexOf('.')) != ".SLDDRW") { err = 3; }
+                //IMPOSSIVEL EXPORTAR E SALVAR  
             }
             else if (!Regex.IsMatch(TextString, PadraoCodigo))//texto codigo padrao
             {
