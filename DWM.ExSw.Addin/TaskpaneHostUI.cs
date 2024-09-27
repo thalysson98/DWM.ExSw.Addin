@@ -49,17 +49,23 @@ namespace DWM.TaskPaneHost
         #endregion
         public TaskpaneHostUI()
         {
-            banco = new cardallData();
-            materiais_bc = new DataMaterial();
-            XML_MATERIAIS = materiais_bc.lista_material(materiais_bc);
-            banco.Main();
+            if(Settings.Default.DataServer == true)
+            {
+                banco = new cardallData();
+                cardalcomands.loadData(banco, XML_MATERIAIS);
+                banco.Main();
+            }
+            if (Settings.Default.XMLMaterial !="") 
+            {
+                materiais_bc = new DataMaterial();
+                XML_MATERIAIS = materiais_bc.lista_material(materiais_bc);
+            }
 
             cardalcomands = new ClientComandsCardall();
             swComands = new swSpecialComands();
             errors = new ErrorList();
             ppr = new Ppr();
 
-            cardalcomands.loadData(banco, XML_MATERIAIS);
             InitializeComponent();
 
         }

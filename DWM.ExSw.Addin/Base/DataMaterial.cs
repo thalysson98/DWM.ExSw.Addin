@@ -15,19 +15,18 @@ namespace DWM.ExSw.Addin.Base
          public List<MaterialInfo> DataMaterial_load()
         {
             List<MaterialInfo> materials = new List<MaterialInfo>();
-            string[] filePath = new string[2];
-            filePath[0] = "C:\\Cardall\\ASSISTENTES\\configuracoesSW\\Materiais\\Cardall (Personalizados).sldmat";
-            filePath[1] = "C:\\Cardall\\ASSISTENTES\\configuracoesSW\\Materiais\\Cardall.sldmat";
+            string filePath ;
+            filePath = Settings.Default.XMLMaterial;
 
             for (int i = 0; filePath.Length> i; i++)
             {
-                if (!System.IO.File.Exists(filePath[i]))
+                if (!System.IO.File.Exists(filePath))
                 {
                     MessageBox.Show("O arquivo XML não foi encontrado.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return null;
                 }
 
-                XDocument doc = XDocument.Load(filePath[i]);
+                XDocument doc = XDocument.Load(filePath);
                 if (doc != null)
                 {
                     List<MaterialInfo> newMaterials = ExtractMaterialInfo(doc);

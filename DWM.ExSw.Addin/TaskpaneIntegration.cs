@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Shapes;
 using Path = System.IO.Path;
 using DWM.ExSw.Addin.DataSRV;
+using Microsoft.Win32;
 
 
 namespace DWM.ExSw.Addin
@@ -143,6 +144,7 @@ namespace DWM.ExSw.Addin
             var ok = mSolidWorksApplication.SetAddinCallbackInfo2(0, this, mSwCookie);
 
             LoadUI();
+            VortexIntegration();
             #region Setup the Event Handlers
             //SwEventPtr = mSolidWorksApplication;
             iSwApp = (ISldWorks)ThisSW;
@@ -256,7 +258,8 @@ namespace DWM.ExSw.Addin
                 }
                 else
                 {
-                    mTaskpaneHost.Verficacao(mSolidWorksApplication,modDoc);
+                     mTaskpaneHost.Verficacao(mSolidWorksApplication, modDoc);
+                    
                 }
             }
         }
@@ -333,27 +336,80 @@ namespace DWM.ExSw.Addin
         #region Events
         public int OnDocChange()
         {
+            if (VortexIntegration())
+            {
+                mTaskpaneHost.PanePrincipal.Visible = true;
+            }
+            else
+            {
+                mTaskpaneHost.PanePrincipal.Visible = false;
+            }
+
             return 0;
         }
         public int FileOpenPreNotify(string FileName)
         {
+            if (VortexIntegration())
+            {
+                mTaskpaneHost.PanePrincipal.Visible = true;
+            }
+            else
+            {
+                mTaskpaneHost.PanePrincipal.Visible = false;
+            }
+
             return 0;
         }
         public int OnDocLoad(string docTitle, string docPath)
         {
+            if (VortexIntegration())
+            {
+                mTaskpaneHost.PanePrincipal.Visible = true;
+            }
+            else
+            {
+                mTaskpaneHost.PanePrincipal.Visible = false;
+            }
+
             return 0;
         }
         int FileOpenPostNotify(string FileName)
         {
+            if (VortexIntegration())
+            {
+                mTaskpaneHost.PanePrincipal.Visible = true;
+            }
+            else
+            {
+                mTaskpaneHost.PanePrincipal.Visible = false;
+            }
+
             return 0;
         }
         public int OnFileNew(object newDoc, int docType, string templateName)
         {
+            if (VortexIntegration())
+            {
+                mTaskpaneHost.PanePrincipal.Visible = true;
+            }
+            else
+            {
+                mTaskpaneHost.PanePrincipal.Visible = false;
+            }
             return 0;
         }
         public int OnModelChange()
         {
-            AttachEventsToAllDocuments();
+            if (VortexIntegration())
+            {
+                mTaskpaneHost.PanePrincipal.Visible = true;
+                AttachEventsToAllDocuments();
+            }
+            else
+            {
+                mTaskpaneHost.PanePrincipal.Visible = false;
+            }
+                  
             return 0;
         }
         public int swTaskPane_TaskPaneToolbarButtonClicked(int ButtonIndex)
@@ -385,7 +441,33 @@ namespace DWM.ExSw.Addin
 
         #endregion
 
-    }
+
+
+
+        bool VortexIntegration()
+        {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\VortexTeste");
+            if (key != null)
+            {
+                string status = (string)key.GetValue("App1Status", "logged_out");
+                key.Close();
+
+                if (status == "logged_in")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+    
+}
 
     #region DocumentHandler
 

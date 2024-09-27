@@ -47,7 +47,15 @@ namespace DWM.TaskPaneHost
             this.button1 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.PanePrincipal = new System.Windows.Forms.Panel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.Estrutura_list = new System.Windows.Forms.ListView();
+            this.qtd = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.material = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.mcorte = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.pl = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.pb = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.info = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.revisorData_txt = new System.Windows.Forms.TextBox();
             this.desenhistaData_txt = new System.Windows.Forms.TextBox();
@@ -64,12 +72,16 @@ namespace DWM.TaskPaneHost
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.Atualizar_bt = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Comercial_check = new System.Windows.Forms.CheckBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.das = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.ListaDeCorte_check = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.calcPB_bt = new System.Windows.Forms.Button();
+            this.pesobt_txt = new System.Windows.Forms.TextBox();
             this.cabecalho_pane = new System.Windows.Forms.Panel();
             this.Codigo_txt = new System.Windows.Forms.TextBox();
             this.revisao_txt = new System.Windows.Forms.TextBox();
@@ -81,8 +93,6 @@ namespace DWM.TaskPaneHost
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.pesobt_txt = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.Denominacao_txt = new System.Windows.Forms.TextBox();
             this.material_txt = new System.Windows.Forms.TextBox();
             this.textDenominacao_txt = new System.Windows.Forms.TextBox();
@@ -90,26 +100,16 @@ namespace DWM.TaskPaneHost
             this.CRM_Control1 = new System.Windows.Forms.ToolStripMenuItem();
             this.salvar_bt = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.ListaDeCorte_check = new System.Windows.Forms.CheckBox();
-            this.Estrutura_list = new System.Windows.Forms.ListView();
-            this.qtd = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.material = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.mcorte = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.pl = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.pb = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.info = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Atualizar_bt = new System.Windows.Forms.Button();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.cabecalho_pane.SuspendLayout();
-            this.CRM.SuspendLayout();
+            this.PanePrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.cabecalho_pane.SuspendLayout();
+            this.CRM.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -217,22 +217,111 @@ namespace DWM.TaskPaneHost
             this.label11.TabIndex = 35;
             this.label11.Text = "thalysson.santos 03/04/23";
             // 
-            // panel2
+            // PanePrincipal
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.PanePrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.splitContainer1);
-            this.panel2.Controls.Add(this.cabecalho_pane);
-            this.panel2.Controls.Add(this.Denominacao_txt);
-            this.panel2.Controls.Add(this.material_txt);
-            this.panel2.Controls.Add(this.textDenominacao_txt);
-            this.panel2.Controls.Add(this.salvar_bt);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Location = new System.Drawing.Point(3, 27);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(703, 727);
-            this.panel2.TabIndex = 44;
+            this.PanePrincipal.Controls.Add(this.splitContainer1);
+            this.PanePrincipal.Controls.Add(this.cabecalho_pane);
+            this.PanePrincipal.Controls.Add(this.Denominacao_txt);
+            this.PanePrincipal.Controls.Add(this.material_txt);
+            this.PanePrincipal.Controls.Add(this.textDenominacao_txt);
+            this.PanePrincipal.Controls.Add(this.salvar_bt);
+            this.PanePrincipal.Controls.Add(this.label4);
+            this.PanePrincipal.Location = new System.Drawing.Point(3, 27);
+            this.PanePrincipal.Name = "PanePrincipal";
+            this.PanePrincipal.Size = new System.Drawing.Size(703, 727);
+            this.PanePrincipal.TabIndex = 44;
+            this.PanePrincipal.Visible = false;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(13, 162);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.Estrutura_list);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
+            this.splitContainer1.Panel2.Controls.Add(this.Atualizar_bt);
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
+            this.splitContainer1.Panel2.Controls.Add(this.ListaDeCorte_check);
+            this.splitContainer1.Panel2.Controls.Add(this.label1);
+            this.splitContainer1.Panel2.Controls.Add(this.calcPB_bt);
+            this.splitContainer1.Panel2.Controls.Add(this.pesobt_txt);
+            this.splitContainer1.Size = new System.Drawing.Size(680, 562);
+            this.splitContainer1.SplitterDistance = 292;
+            this.splitContainer1.TabIndex = 81;
+            // 
+            // Estrutura_list
+            // 
+            this.Estrutura_list.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Estrutura_list.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Estrutura_list.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.qtd,
+            this.material,
+            this.mcorte,
+            this.pl,
+            this.pb,
+            this.info});
+            this.Estrutura_list.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.Estrutura_list.FullRowSelect = true;
+            this.Estrutura_list.GridLines = true;
+            this.Estrutura_list.HideSelection = false;
+            this.Estrutura_list.Location = new System.Drawing.Point(3, 4);
+            this.Estrutura_list.MultiSelect = false;
+            this.Estrutura_list.Name = "Estrutura_list";
+            this.Estrutura_list.Size = new System.Drawing.Size(674, 288);
+            this.Estrutura_list.TabIndex = 44;
+            this.Estrutura_list.UseCompatibleStateImageBehavior = false;
+            this.Estrutura_list.View = System.Windows.Forms.View.Details;
+            this.Estrutura_list.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.Estrutura_list_ColumnClick);
+            this.Estrutura_list.SelectedIndexChanged += new System.EventHandler(this.Estrutura_list_SelectedIndexChanged);
+            // 
+            // qtd
+            // 
+            this.qtd.Text = "Qtd.";
+            this.qtd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.qtd.Width = 35;
+            // 
+            // material
+            // 
+            this.material.Text = "Material";
+            this.material.Width = 350;
+            // 
+            // mcorte
+            // 
+            this.mcorte.Text = "Medida de Corte";
+            this.mcorte.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mcorte.Width = 110;
+            // 
+            // pl
+            // 
+            this.pl.Text = "PL(Un)";
+            this.pl.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.pl.Width = 50;
+            // 
+            // pb
+            // 
+            this.pb.Text = "PB(Un)";
+            this.pb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.pb.Width = 50;
+            // 
+            // info
+            // 
+            this.info.Text = "Info";
+            this.info.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.info.Width = 80;
             // 
             // groupBox2
             // 
@@ -407,6 +496,21 @@ namespace DWM.TaskPaneHost
             this.label3.TabIndex = 71;
             this.label3.Text = "Projetista";
             // 
+            // Atualizar_bt
+            // 
+            this.Atualizar_bt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Atualizar_bt.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.Atualizar_bt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Atualizar_bt.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.Atualizar_bt.Image = global::DWM.ExSw.Addin.Properties.Resources.atualizar_20x20;
+            this.Atualizar_bt.Location = new System.Drawing.Point(3, 3);
+            this.Atualizar_bt.Name = "Atualizar_bt";
+            this.Atualizar_bt.Size = new System.Drawing.Size(36, 35);
+            this.Atualizar_bt.TabIndex = 43;
+            this.Atualizar_bt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Atualizar_bt.UseVisualStyleBackColor = true;
+            this.Atualizar_bt.Click += new System.EventHandler(this.Atualizar_bt_Click);
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.Comercial_check);
@@ -465,6 +569,28 @@ namespace DWM.TaskPaneHost
             this.checkBox1.Text = "Excluir/Atualizar lista de corte";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // ListaDeCorte_check
+            // 
+            this.ListaDeCorte_check.AutoSize = true;
+            this.ListaDeCorte_check.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.ListaDeCorte_check.Location = new System.Drawing.Point(45, 13);
+            this.ListaDeCorte_check.Name = "ListaDeCorte_check";
+            this.ListaDeCorte_check.Size = new System.Drawing.Size(177, 17);
+            this.ListaDeCorte_check.TabIndex = 45;
+            this.ListaDeCorte_check.Text = "Excluir/Atualizar lista de corte";
+            this.ListaDeCorte_check.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.label1.Location = new System.Drawing.Point(485, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(72, 13);
+            this.label1.TabIndex = 74;
+            this.label1.Text = "PB. Total (kg)";
+            // 
             // calcPB_bt
             // 
             this.calcPB_bt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -476,6 +602,15 @@ namespace DWM.TaskPaneHost
             this.calcPB_bt.Text = "+";
             this.calcPB_bt.UseVisualStyleBackColor = true;
             this.calcPB_bt.Click += new System.EventHandler(this.calcPB_bt_Click);
+            // 
+            // pesobt_txt
+            // 
+            this.pesobt_txt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pesobt_txt.Location = new System.Drawing.Point(563, 9);
+            this.pesobt_txt.Name = "pesobt_txt";
+            this.pesobt_txt.Size = new System.Drawing.Size(66, 22);
+            this.pesobt_txt.TabIndex = 75;
+            this.pesobt_txt.TextChanged += new System.EventHandler(this.pesobt_txt_TextChanged);
             // 
             // cabecalho_pane
             // 
@@ -617,26 +752,6 @@ namespace DWM.TaskPaneHost
             this.label14.TabIndex = 72;
             this.label14.Text = "Unidade";
             // 
-            // pesobt_txt
-            // 
-            this.pesobt_txt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pesobt_txt.Location = new System.Drawing.Point(563, 9);
-            this.pesobt_txt.Name = "pesobt_txt";
-            this.pesobt_txt.Size = new System.Drawing.Size(66, 22);
-            this.pesobt_txt.TabIndex = 75;
-            this.pesobt_txt.TextChanged += new System.EventHandler(this.pesobt_txt_TextChanged);
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.label1.Location = new System.Drawing.Point(485, 14);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 13);
-            this.label1.TabIndex = 74;
-            this.label1.Text = "PB. Total (kg)";
-            // 
             // Denominacao_txt
             // 
             this.Denominacao_txt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -721,120 +836,6 @@ namespace DWM.TaskPaneHost
             this.label4.TabIndex = 48;
             this.label4.Text = "Denominação";
             // 
-            // ListaDeCorte_check
-            // 
-            this.ListaDeCorte_check.AutoSize = true;
-            this.ListaDeCorte_check.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.ListaDeCorte_check.Location = new System.Drawing.Point(45, 13);
-            this.ListaDeCorte_check.Name = "ListaDeCorte_check";
-            this.ListaDeCorte_check.Size = new System.Drawing.Size(177, 17);
-            this.ListaDeCorte_check.TabIndex = 45;
-            this.ListaDeCorte_check.Text = "Excluir/Atualizar lista de corte";
-            this.ListaDeCorte_check.UseVisualStyleBackColor = true;
-            // 
-            // Estrutura_list
-            // 
-            this.Estrutura_list.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Estrutura_list.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Estrutura_list.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.qtd,
-            this.material,
-            this.mcorte,
-            this.pl,
-            this.pb,
-            this.info});
-            this.Estrutura_list.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.Estrutura_list.FullRowSelect = true;
-            this.Estrutura_list.GridLines = true;
-            this.Estrutura_list.HideSelection = false;
-            this.Estrutura_list.Location = new System.Drawing.Point(3, 4);
-            this.Estrutura_list.MultiSelect = false;
-            this.Estrutura_list.Name = "Estrutura_list";
-            this.Estrutura_list.Size = new System.Drawing.Size(674, 288);
-            this.Estrutura_list.TabIndex = 44;
-            this.Estrutura_list.UseCompatibleStateImageBehavior = false;
-            this.Estrutura_list.View = System.Windows.Forms.View.Details;
-            this.Estrutura_list.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.Estrutura_list_ColumnClick);
-            this.Estrutura_list.SelectedIndexChanged += new System.EventHandler(this.Estrutura_list_SelectedIndexChanged);
-            // 
-            // qtd
-            // 
-            this.qtd.Text = "Qtd.";
-            this.qtd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.qtd.Width = 35;
-            // 
-            // material
-            // 
-            this.material.Text = "Material";
-            this.material.Width = 350;
-            // 
-            // mcorte
-            // 
-            this.mcorte.Text = "Medida de Corte";
-            this.mcorte.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.mcorte.Width = 110;
-            // 
-            // pl
-            // 
-            this.pl.Text = "PL(Un)";
-            this.pl.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.pl.Width = 50;
-            // 
-            // pb
-            // 
-            this.pb.Text = "PB(Un)";
-            this.pb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.pb.Width = 50;
-            // 
-            // info
-            // 
-            this.info.Text = "Info";
-            this.info.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.info.Width = 80;
-            // 
-            // Atualizar_bt
-            // 
-            this.Atualizar_bt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Atualizar_bt.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.Atualizar_bt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Atualizar_bt.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.Atualizar_bt.Image = global::DWM.ExSw.Addin.Properties.Resources.atualizar_20x20;
-            this.Atualizar_bt.Location = new System.Drawing.Point(3, 3);
-            this.Atualizar_bt.Name = "Atualizar_bt";
-            this.Atualizar_bt.Size = new System.Drawing.Size(36, 35);
-            this.Atualizar_bt.TabIndex = 43;
-            this.Atualizar_bt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Atualizar_bt.UseVisualStyleBackColor = true;
-            this.Atualizar_bt.Click += new System.EventHandler(this.Atualizar_bt_Click);
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(13, 162);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.Estrutura_list);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
-            this.splitContainer1.Panel2.Controls.Add(this.Atualizar_bt);
-            this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
-            this.splitContainer1.Panel2.Controls.Add(this.ListaDeCorte_check);
-            this.splitContainer1.Panel2.Controls.Add(this.label1);
-            this.splitContainer1.Panel2.Controls.Add(this.calcPB_bt);
-            this.splitContainer1.Panel2.Controls.Add(this.pesobt_txt);
-            this.splitContainer1.Size = new System.Drawing.Size(680, 562);
-            this.splitContainer1.SplitterDistance = 292;
-            this.splitContainer1.TabIndex = 81;
-            // 
             // TaskpaneHostUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -842,7 +843,7 @@ namespace DWM.TaskPaneHost
             this.AutoScroll = true;
             this.AutoScrollMinSize = new System.Drawing.Size(450, 0);
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.PanePrincipal);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 8F);
@@ -851,8 +852,13 @@ namespace DWM.TaskPaneHost
             this.Load += new System.EventHandler(this.TaskpaneHostUI_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.PanePrincipal.ResumeLayout(false);
+            this.PanePrincipal.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -860,11 +866,6 @@ namespace DWM.TaskPaneHost
             this.cabecalho_pane.ResumeLayout(false);
             this.cabecalho_pane.PerformLayout();
             this.CRM.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -878,7 +879,7 @@ namespace DWM.TaskPaneHost
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Panel panel2;
+        public System.Windows.Forms.Panel PanePrincipal;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox unidade_cb;
         private System.Windows.Forms.Label label13;
