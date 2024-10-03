@@ -7,23 +7,15 @@
       "RelativeMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|solutionrelative:taskpaneintegration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|c:\\users\\thaly\\onedrive\\documentos\\github\\dwm.exsw.addin\\dwm.exsw.addin\\properties\\settings.settings||{6D2695F9-5365-4A78-89ED-F205C045BFE6}",
-      "RelativeMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|solutionrelative:properties\\settings.settings||{6D2695F9-5365-4A78-89ED-F205C045BFE6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\DWM.ExSw.Addin\\base\\datamaterial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|solutionrelative:base\\datamaterial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|c:\\users\\thaly\\onedrive\\documentos\\github\\dwm.exsw.addin\\dwm.exsw.addin\\taskpanehostui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|solutionrelative:taskpanehostui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\DWM.ExSw.Addin\\taskpanehostui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|solutionrelative:taskpanehostui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|c:\\users\\thaly\\onedrive\\documentos\\github\\dwm.exsw.addin\\dwm.exsw.addin\\taskpanehostui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|solutionrelative:taskpanehostui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|c:\\users\\thaly\\onedrive\\documentos\\github\\dwm.exsw.addin\\dwm.exsw.addin\\base\\clientcomands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\DWM.ExSw.Addin\\base\\clientcomands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|solutionrelative:base\\clientcomands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -34,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 301,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -43,18 +35,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Settings.settings",
-              "DocumentMoniker": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\DWM.ExSw.Addin\\Properties\\Settings.settings",
-              "RelativeDocumentMoniker": "Properties\\Settings.settings",
-              "ToolTip": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\DWM.ExSw.Addin\\Properties\\Settings.settings",
-              "RelativeToolTip": "Properties\\Settings.settings",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002767|",
-              "WhenOpened": "2024-09-27T14:22:20.599Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "TaskpaneHostUI.cs [Design]",
               "DocumentMoniker": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\DWM.ExSw.Addin\\TaskpaneHostUI.cs",
               "RelativeDocumentMoniker": "TaskpaneHostUI.cs",
@@ -66,33 +46,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DataMaterial.cs",
-              "DocumentMoniker": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\DWM.ExSw.Addin\\Base\\DataMaterial.cs",
-              "RelativeDocumentMoniker": "Base\\DataMaterial.cs",
-              "ToolTip": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\DWM.ExSw.Addin\\Base\\DataMaterial.cs",
-              "RelativeToolTip": "Base\\DataMaterial.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAAACsAAAA4AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-29T19:33:45.586Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "TaskpaneIntegration.cs",
               "DocumentMoniker": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\DWM.ExSw.Addin\\TaskpaneIntegration.cs",
               "RelativeDocumentMoniker": "TaskpaneIntegration.cs",
               "ToolTip": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\DWM.ExSw.Addin\\TaskpaneIntegration.cs",
               "RelativeToolTip": "TaskpaneIntegration.cs",
-              "ViewState": "AQIAAIAAAAAAAAAAAAA2wIYAAAAhAAAA",
+              "ViewState": "AQIAAGkBAAAAAAAAAAAcwG8BAAA7AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-29T19:32:40.014Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "ClientComands.cs",
               "DocumentMoniker": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\DWM.ExSw.Addin\\Base\\ClientComands.cs",
               "RelativeDocumentMoniker": "Base\\ClientComands.cs",
@@ -100,12 +67,11 @@
               "RelativeToolTip": "Base\\ClientComands.cs",
               "ViewState": "AQIAAFUBAAAAAAAAAAAuwHsBAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-29T19:33:36.892Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-29T19:33:36.892Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "TaskpaneHostUI.cs",
               "DocumentMoniker": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\DWM.ExSw.Addin\\TaskpaneHostUI.cs",
               "RelativeDocumentMoniker": "TaskpaneHostUI.cs",
@@ -113,8 +79,7 @@
               "RelativeToolTip": "TaskpaneHostUI.cs",
               "ViewState": "AQIAAB4AAAAAAAAAAAAiwDwAAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-29T19:33:20.636Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-29T19:33:20.636Z"
             }
           ]
         },

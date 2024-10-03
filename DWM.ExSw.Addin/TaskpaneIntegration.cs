@@ -15,7 +15,12 @@ using System.Windows.Shapes;
 using Path = System.IO.Path;
 using DWM.ExSw.Addin.DataSRV;
 using Microsoft.Win32;
-
+using System.Threading;
+using System.Windows.Forms;
+using System.Net.Sockets;
+using System.Net;
+using System.Text;
+using System.IO;
 
 namespace DWM.ExSw.Addin
 {
@@ -336,40 +341,40 @@ namespace DWM.ExSw.Addin
         #region Events
         public int OnDocChange()
         {
-            if (VortexIntegration())
-            {
-                mTaskpaneHost.PanePrincipal.Visible = true;
-            }
-            else
-            {
-                mTaskpaneHost.PanePrincipal.Visible = false;
-            }
+            //if (VortexIntegration())
+            //{
+            //    mTaskpaneHost.PanePrincipal.Visible = true;
+            //}
+            //else
+            //{
+            //    mTaskpaneHost.PanePrincipal.Visible = false;
+            //}
 
             return 0;
         }
         public int FileOpenPreNotify(string FileName)
         {
-            if (VortexIntegration())
-            {
-                mTaskpaneHost.PanePrincipal.Visible = true;
-            }
-            else
-            {
-                mTaskpaneHost.PanePrincipal.Visible = false;
-            }
+            //if (VortexIntegration())
+            //{
+            //    mTaskpaneHost.PanePrincipal.Visible = true;
+            //}
+            //else
+            //{
+            //    mTaskpaneHost.PanePrincipal.Visible = false;
+            //}
 
             return 0;
         }
         public int OnDocLoad(string docTitle, string docPath)
         {
-            if (VortexIntegration())
-            {
-                mTaskpaneHost.PanePrincipal.Visible = true;
-            }
-            else
-            {
-                mTaskpaneHost.PanePrincipal.Visible = false;
-            }
+            //if (VortexIntegration())
+            //{
+            //    mTaskpaneHost.PanePrincipal.Visible = true;
+            //}
+            //else
+            //{
+            //    mTaskpaneHost.PanePrincipal.Visible = false;
+            //}
 
             return 0;
         }
@@ -388,27 +393,27 @@ namespace DWM.ExSw.Addin
         }
         public int OnFileNew(object newDoc, int docType, string templateName)
         {
-            if (VortexIntegration())
-            {
-                mTaskpaneHost.PanePrincipal.Visible = true;
-            }
-            else
-            {
-                mTaskpaneHost.PanePrincipal.Visible = false;
-            }
+            //if (VortexIntegration())
+            //{
+            //    mTaskpaneHost.PanePrincipal.Visible = true;
+            //}
+            //else
+            //{
+            //    mTaskpaneHost.PanePrincipal.Visible = false;
+            //}
             return 0;
         }
         public int OnModelChange()
         {
-            if (VortexIntegration())
-            {
-                mTaskpaneHost.PanePrincipal.Visible = true;
-                AttachEventsToAllDocuments();
-            }
-            else
-            {
-                mTaskpaneHost.PanePrincipal.Visible = false;
-            }
+            //if (VortexIntegration())
+            //{
+            //    mTaskpaneHost.PanePrincipal.Visible = true;
+            AttachEventsToAllDocuments();
+            //}
+            //else
+            //{
+            //    mTaskpaneHost.PanePrincipal.Visible = false;
+            //}
                   
             return 0;
         }
@@ -454,6 +459,8 @@ namespace DWM.ExSw.Addin
 
                 if (status == "logged_in")
                 {
+                    OpenVortex vortex = new OpenVortex();
+                    vortex.Main();
                     return true;
                 }
                 else
@@ -466,12 +473,24 @@ namespace DWM.ExSw.Addin
                 return false;
             }
         }
-    
-}
+        class OpenVortex
+        {
+            public void Main()
+            {
+                TcpClient client = new TcpClient("localhost", 5000);
+                NetworkStream stream = client.GetStream();
+                byte[] data = Encoding.UTF8.GetBytes("executarTarefa");
+                stream.Write(data, 0, data.Length);
+                stream.Close();
+                client.Close();
+            }
+        }
 
-    #region DocumentHandler
+    }
 
-    internal class DrawingEventHandler : DocumentEventHandler
+#region DocumentHandler
+
+internal class DrawingEventHandler : DocumentEventHandler
     {
         private ModelDoc2 modDoc;
         private TaskpaneIntegration taskpaneIntegration;
