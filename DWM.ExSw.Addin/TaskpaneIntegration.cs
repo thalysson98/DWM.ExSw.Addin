@@ -457,7 +457,7 @@ namespace DWM.ExSw.Addin
                 string status = (string)key.GetValue("App1Status", "logged_out");
                 key.Close();
 
-                if (status == "logged_in")
+                if (status != "logged_in")
                 {
                     OpenVortex vortex = new OpenVortex();
                     vortex.Main();
