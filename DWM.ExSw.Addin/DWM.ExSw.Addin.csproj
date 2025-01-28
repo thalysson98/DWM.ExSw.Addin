@@ -94,6 +94,7 @@
     <Compile Include="Base\DataMaterial.cs" />
     <Compile Include="Base\stringcorrection.cs" />
     <Compile Include="Base\swSpecialComands.cs" />
+    <Compile Include="Core\Vortex_In.cs" />
     <Compile Include="Core\DocumentEventHandler.cs" />
     <Compile Include="Core\ListItemComparer.cs" />
     <Compile Include="DataSRV\cardallData.cs" />

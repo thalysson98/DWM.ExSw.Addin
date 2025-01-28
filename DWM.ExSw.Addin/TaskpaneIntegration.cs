@@ -41,12 +41,14 @@ namespace DWM.ExSw.Addin
         private TaskpaneView mTaskpaneView;
         private SldWorks mSolidWorksApplication;
         private TaskpaneHostUI mTaskpaneHost;
+        private ICommandManager iCmdMgr;
+        private ISldWorks iSwApp;
+
         #endregion
 
         #region Public Menbers
         public int buttonIdx;
-        private ICommandManager iCmdMgr;
-        private ISldWorks iSwApp;
+        public Vortex_In Vortex_In;
         public const string SWTASKPANE_PROGID = "DWM.ExSw.Addin.Taskpane";
         #endregion
 
@@ -148,8 +150,11 @@ namespace DWM.ExSw.Addin
 
             var ok = mSolidWorksApplication.SetAddinCallbackInfo2(0, this, mSwCookie);
 
-            LoadUI();
-            VortexIntegration();
+            if (LoadUI())
+            {
+                Vortex_In = new Vortex_In();
+                Vortex_In.OpenVortex();
+            }
             #region Setup the Event Handlers
             //SwEventPtr = mSolidWorksApplication;
             iSwApp = (ISldWorks)ThisSW;
@@ -185,12 +190,9 @@ namespace DWM.ExSw.Addin
             if (mTaskpaneHost != null)
             {
                 mTaskpaneHost.swApp = mSolidWorksApplication;
-            }
+                return true;
+            }else { return false; }
 
-
-
-
-            return true;
         }
         private void UnloadUI()
         {
@@ -341,14 +343,14 @@ namespace DWM.ExSw.Addin
         #region Events
         public int OnDocChange()
         {
-            //if (VortexIntegration())
-            //{
-            //    mTaskpaneHost.PanePrincipal.Visible = true;
-            //}
-            //else
-            //{
-            //    mTaskpaneHost.PanePrincipal.Visible = false;
-            //}
+            if (Vortex_In.is_loged())
+            {
+                mTaskpaneHost.PanePrincipal.Visible = true;
+            }
+            else
+            {
+                mTaskpaneHost.PanePrincipal.Visible = false;
+            }
 
             return 0;
         }
@@ -380,7 +382,7 @@ namespace DWM.ExSw.Addin
         }
         int FileOpenPostNotify(string FileName)
         {
-            if (VortexIntegration())
+            if (Vortex_In.is_loged())
             {
                 mTaskpaneHost.PanePrincipal.Visible = true;
             }
@@ -446,45 +448,6 @@ namespace DWM.ExSw.Addin
 
         #endregion
 
-
-
-
-        bool VortexIntegration()
-        {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\VortexTeste");
-            if (key != null)
-            {
-                string status = (string)key.GetValue("App1Status", "logged_out");
-                key.Close();
-
-                if (status != "logged_in")
-                {
-                    OpenVortex vortex = new OpenVortex();
-                    vortex.Main();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-        class OpenVortex
-        {
-            public void Main()
-            {
-                TcpClient client = new TcpClient("localhost", 5000);
-                NetworkStream stream = client.GetStream();
-                byte[] data = Encoding.UTF8.GetBytes("executarTarefa");
-                stream.Write(data, 0, data.Length);
-                stream.Close();
-                client.Close();
-            }
-        }
 
     }
 

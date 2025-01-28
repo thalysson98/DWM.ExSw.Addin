@@ -36,6 +36,7 @@ namespace DWM.TaskPaneHost
         {
             this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.abrirVortexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aplicaçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bancoDeMateriaisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,6 +101,7 @@ namespace DWM.TaskPaneHost
             this.CRM_Control1 = new System.Windows.Forms.ToolStripMenuItem();
             this.salvar_bt = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.PanePrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -115,11 +117,20 @@ namespace DWM.TaskPaneHost
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.abrirVortexToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(709, 24);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // abrirVortexToolStripMenuItem
+            // 
+            this.abrirVortexToolStripMenuItem.Name = "abrirVortexToolStripMenuItem";
+            this.abrirVortexToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
+            this.abrirVortexToolStripMenuItem.Text = "Abrir Vortex";
+            this.abrirVortexToolStripMenuItem.Click += new System.EventHandler(this.abrirVortexToolStripMenuItem_Click);
             // 
             // aplicaçãoToolStripMenuItem
             // 
@@ -850,6 +861,8 @@ namespace DWM.TaskPaneHost
             this.Name = "TaskpaneHostUI";
             this.Size = new System.Drawing.Size(709, 798);
             this.Load += new System.EventHandler(this.TaskpaneHostUI_Load);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.PanePrincipal.ResumeLayout(false);
@@ -937,5 +950,6 @@ namespace DWM.TaskPaneHost
         private System.Windows.Forms.ToolStripMenuItem bancoDeMateriaisToolStripMenuItem;
         private System.Windows.Forms.Button calcPB_bt;
         private SplitContainer splitContainer1;
+        private ToolStripMenuItem abrirVortexToolStripMenuItem;
     }
 }

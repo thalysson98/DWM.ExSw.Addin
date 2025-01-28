@@ -24,6 +24,7 @@ using DWM.ExSw.Addin.DataSRV;
 using DWM.ExSw.Addin.Core;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Net.Sockets;
 
 namespace DWM.TaskPaneHost
 {
@@ -38,6 +39,7 @@ namespace DWM.TaskPaneHost
         public swSpecialComands swComands;
         public object[,] EstruturaOBJ;
         public bool Comercial;
+        public Vortex_In vortexcomands;
         #endregion
 
         #region Private Methods
@@ -60,7 +62,7 @@ namespace DWM.TaskPaneHost
                 materiais_bc = new DataMaterial();
                 XML_MATERIAIS = materiais_bc.lista_material(materiais_bc);
             }
-
+            vortexcomands = new Vortex_In();
             cardalcomands = new ClientComandsCardall();
             swComands = new swSpecialComands();
             errors = new ErrorList();
@@ -799,8 +801,17 @@ namespace DWM.TaskPaneHost
             }
         }
 
+        private void abrirVortexToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (vortexcomands.OpenVortex() && vortexcomands.is_loged())
+            {
+                PanePrincipal.Visible = true;
+                vortexcomands.showVortex();
+            }
+        }
     }
 }
+
 public static class FormUtils
 {
     // Verifica se uma instância específica de um formulário está aberta
