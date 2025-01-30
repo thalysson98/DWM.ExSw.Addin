@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Pipes;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
+using System.Windows.Forms;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace DWM.ExSw.Addin.Core
 {
     public class Vortex_In
     {
-        TcpClient client;
-        NetworkStream stream;
+        bool response { get; set; }
         //Abre Vortex pelo solid
         public bool OpenVortex()
         {
@@ -38,62 +41,15 @@ namespace DWM.ExSw.Addin.Core
             }
 
         }
-        void command(string command)
-        {
-
-            try
-            {
-                if (client != null && stream != null)
-                {
-                    byte[] commandBytes = Encoding.UTF8.GetBytes(command);
-                    stream.Write(commandBytes, 0, commandBytes.Length);
-                    //client.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro: {ex.Message}");
-            }
-
-        }
-        string response()
-        {
-            string res = "";
-            try
-            {
-                if (client != null && stream != null)
-                {
-                    byte[] buffer = new byte[1024];
-                    int bytesRead = stream.Read(buffer, 0, buffer.Length);
-                    res = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                    //client.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro: {ex.Message}");
-            }
-            return res;
-        }
         //Verifica se o login esta feito
         public bool is_loged()
         {
-            try
+            command("login");
+            if(response == true) 
             {
-                client = new TcpClient("127.0.0.1", 5000);
-                stream = client.GetStream();
-                command("login");
-                if(response() == "true") 
-                {
-                    client.Close();
-                    return true; 
-                }
+                return true;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro: {ex.Message}");
-            }
-            return false;
+            else { return false; }
         }
 
         //Abre janela Vortex
@@ -101,10 +57,7 @@ namespace DWM.ExSw.Addin.Core
         {
             try
             {
-                client = new TcpClient("127.0.0.1", 5000);
-                stream = client.GetStream();
-                command("showvortex");
-                client.Close();
+               command("showvortex");
             }
             catch (Exception ex)
             {
@@ -113,6 +66,30 @@ namespace DWM.ExSw.Addin.Core
             return false;
         }
 
+        public async void command(string command)
+        {
+            try
+            {
+                using (var pipeClient = new NamedPipeClientStream(".", "b4da2b18-49fc-4b83-89a6-19b73e754ee3", PipeDirection.InOut))
+                {
+                    await pipeClient.ConnectAsync(); // Aguarda conexão com o servidor
 
+                    using (var writer = new StreamWriter(pipeClient) { AutoFlush = true })
+                    using (var reader = new StreamReader(pipeClient))
+                    {
+                        // Envia o comando ao servidor
+                        await writer.WriteLineAsync(command);
+
+                        // Aguarda a resposta do servidor
+                        var response_ = await reader.ReadLineAsync();
+                        if (response_ == "true") { response = true; } else {  response = false; }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Print($"Erro ao enviar comando: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
