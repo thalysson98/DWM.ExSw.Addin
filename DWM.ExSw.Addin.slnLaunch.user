@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Novo Perfil",
+    "Projects": [
+      {
+        "Path": "DWM.ExSw.Addin.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "..\\TestProject1\\TaskpaneIntegrationTests.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
