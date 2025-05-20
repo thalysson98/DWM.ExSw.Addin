@@ -832,6 +832,13 @@ namespace DWM.TaskPaneHost
                 vortexcomands.showVortex();
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Estrutura_main estr = new Estrutura_main(banco, this);
+            estr.Show();
+            estr.GetValues(Codigo_txt.Text + revisao_txt.Text);
+        }
     }
 }
 

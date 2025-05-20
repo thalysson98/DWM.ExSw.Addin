@@ -22,7 +22,7 @@ using System.Net;
 using System.Text;
 using System.IO;
 using Xarial.XCad.SolidWorks;
-using SolidWorks.Interop.cosworks;
+//using SolidWorks.Interop.cosworks;
 using Xarial.XCad.Base.Attributes;
 using Xarial.XCad.UI;
 using Xarial.XCad.Documents;
@@ -31,6 +31,7 @@ using Xarial.XCad.Documents.Services;
 using Xarial.XCad.Documents.Extensions;
 using Xarial.XCad.SolidWorks.Documents.Services;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Xarial.XCad.Toolkit.Services;
 namespace DWM.ExSw.Addin
 {
     [ComVisible(true)]
@@ -98,6 +99,20 @@ namespace DWM.ExSw.Addin
             SldWorks app = (SldWorks)Application.Sw;
             mTaskpaneHost.Verficacao(app, model);
         }
+
+
+
+
+
         #endregion
+
+        #region Events
+
+
+        #endregion
+
+
+
+
     }
 }
