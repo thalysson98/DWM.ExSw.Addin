@@ -1,37 +1,17 @@
-﻿using DWM.TaskPaneHost;
-using DWM.ExSw.Addin.Core;
+﻿using DWM.ExSw.Addin.Core;
+using DWM.TaskPaneHost;
 using SolidWorks.Interop.sldworks;
-using SolidWorks.Interop.swconst;
-using SolidWorks.Interop.swpublished;
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Shapes;
-using Path = System.IO.Path;
-using DWM.ExSw.Addin.DataSRV;
-using Microsoft.Win32;
-using System.Threading;
-using System.Windows.Forms;
-using System.Net.Sockets;
-using System.Net;
-using System.Text;
-using System.IO;
-using Xarial.XCad.SolidWorks;
-//using SolidWorks.Interop.cosworks;
 using Xarial.XCad.Base.Attributes;
-using Xarial.XCad.UI;
 using Xarial.XCad.Documents;
-using Xarial.XCad.Features;
-using Xarial.XCad.Documents.Services;
 using Xarial.XCad.Documents.Extensions;
-using Xarial.XCad.SolidWorks.Documents.Services;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Xarial.XCad.Toolkit.Services;
+using Xarial.XCad.SolidWorks;
+using Xarial.XCad.UI;
+
+
 namespace DWM.ExSw.Addin
 {
     [ComVisible(true)]
@@ -41,19 +21,9 @@ namespace DWM.ExSw.Addin
     [Icon(typeof(DWM.ExSw.Addin.Properties.Resources), nameof(DWM.ExSw.Addin.Properties.Resources.main))]
     public class TaskpaneIntegration : SwAddInEx, IAddin
     {
-        #region Event Handler Variables
-        Hashtable openDocs;
-        SldWorks SwEventPtr;
-        #endregion
 
         #region Private Menbers
-        private int mSwCookie;
-        private TaskpaneView mTaskpaneView;
-        private SldWorks mSolidWorksApplication;
         private TaskpaneHostUI mTaskpaneHost;
-        private ICommandManager iCmdMgr;
-        private ISldWorks iSwApp;
-        private IXCustomPanel<TaskpaneHostUI> m_FeatMgrTab;
         #endregion
 
         #region Properties
@@ -82,9 +52,11 @@ namespace DWM.ExSw.Addin
 
             var pane = CreateTaskPane<TaskpaneHostUI>();
             mTaskpaneHost = pane.Control;
+            SwDocHandler.SetTaskpaneHost(mTaskpaneHost); // passa para o handler via static
+
             this.Application.Documents.RegisterHandler<SwDocHandler>();
             Application.Documents.DocumentActivated += OnDocumentActivated;
-            
+
         }
 
         public override void OnDisconnect()
@@ -101,18 +73,7 @@ namespace DWM.ExSw.Addin
         }
 
 
-
-
-
         #endregion
-
-        #region Events
-
-
-        #endregion
-
-
-
 
     }
 }

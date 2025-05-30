@@ -26,6 +26,9 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Net.Sockets;
 using Xarial.XCad.Base.Attributes;
+using Xarial.XCad.SolidWorks;
+using Xarial.XCad.SolidWorks.Documents;
+using Xarial.XCad;
 
 namespace DWM.TaskPaneHost
 {
@@ -42,34 +45,36 @@ namespace DWM.TaskPaneHost
         public object[,] EstruturaOBJ;
         public bool Comercial;
         public Vortex_In vortexcomands;
+        public Estrutura_main formEstrutura { get; set; }
         #endregion
-
         #region Private Methods
         private int sortColumn = -1;
         DataMaterial materiais_bc;
         Ppr ppr;
         ErrorList errors;
-        cardallData banco;
+        public cardallData banco;
         #endregion
         public TaskpaneHostUI()
         {
             if(Settings.Default.DataServer == false)
             {
                 banco = new cardallData();
-                //cardalcomands.loadData(banco, XML_MATERIAIS);
                 banco.Main();
+
             }
             if (Settings.Default.XMLMaterial !="") 
             {
                 materiais_bc = new DataMaterial();
                 XML_MATERIAIS = materiais_bc.lista_material(materiais_bc);
+                
             }
+            
             vortexcomands = new Vortex_In();
             cardalcomands = new ClientComandsCardall();
             swComands = new swSpecialComands();
             errors = new ErrorList();
             ppr = new Ppr();
-
+            cardalcomands.loadData(banco, XML_MATERIAIS);
             InitializeComponent();
 
         }
@@ -126,7 +131,7 @@ namespace DWM.TaskPaneHost
         }
         public void DefaultForms(SldWorks swApp)
         {
-            swModel = null;
+            //swModel = null;
             var colors = ErrorList.GetLabelColors(0);
             Comercial_check.Checked = false;
             #region Labels text
@@ -178,6 +183,7 @@ namespace DWM.TaskPaneHost
             #endregion
 
             Estrutura_list.Items.Clear();
+            Estrutura_list.Groups.Clear();
         }
         private void ObterValores()
         {
@@ -280,14 +286,15 @@ namespace DWM.TaskPaneHost
         }
         private void Atualizar_bt_Click(object sender, EventArgs e)
         {
-            swModel = null;
+            //swModel = null;
             if (swApp != null)
             {
                 DefaultForms(swApp);
-                swModel = swApp.ActiveDoc as ModelDoc2;
+                //swModel = swApp.ActiveDoc as ModelDoc2;
                 Verficacao(swApp, swModel);
                 if(swModel!= null)
                 {
+
                     if ((int)swModel.GetType() == (int)swDocumentTypes_e.swDocPART)
                     {
                         ObterValores();
@@ -460,7 +467,8 @@ namespace DWM.TaskPaneHost
             {
                 cardalcomands.ValidandoRevisao(swModel, revisao_txt.Text,out err);
                 string varRev = banco.ValidarRev(Codigo_txt.Text, revisao_txt.Text);
-                if (varRev != revisao_txt.Text && varRev != null) { MessageBox.Show("Revisão diferente do banco de dados"); err = 3; }
+                if (varRev != revisao_txt.Text && varRev != null) { //MessageBox.Show("Revisão diferente do banco de dados");
+                                                                    err = 3; }
 
                 var colors = ErrorList.GetLabelColors(err);
                 revisao_txt.BackColor = colors.Item1;
@@ -835,10 +843,16 @@ namespace DWM.TaskPaneHost
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Estrutura_main estr = new Estrutura_main(banco, this);
-            estr.Show();
-            estr.GetValues(Codigo_txt.Text + revisao_txt.Text);
+            if (formEstrutura != null)
+            {
+                formEstrutura = new Estrutura_main( this);
+                formEstrutura.Show();
+                formEstrutura.GetValues(Codigo_txt.Text + revisao_txt.Text);
+            }
+            else { formEstrutura.Activate(); }
+
         }
+
     }
 }
 

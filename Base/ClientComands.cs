@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ListViewItem = System.Windows.Forms.ListViewItem;
-
+using Xarial.XCad;
+using Xarial.XCad.Documents;
+using System.Linq;
 namespace DWM.ExSw.Addin.Base
 {
 
@@ -18,7 +20,7 @@ namespace DWM.ExSw.Addin.Base
         cardallData banco;
         List<string[]> XML_MATERIAIS;
         string[] config;
-
+        
         #endregion
         public void loadData(cardallData _data, List<string[]> _dataXML)
         {
@@ -253,7 +255,11 @@ namespace DWM.ExSw.Addin.Base
                         if (Val2[1] != "SAE 1020")
                         {
                             InTable = validarMaterial(Val2[1], out un1, out un2, out peso);
-                            err = validarCorpo(custPrpMgr, swBody.IsSheetMetal(), un1, un2, peso, out Val2[6], InTable);
+                            if (InTable)
+                            {
+                                err = validarCorpo(custPrpMgr, swBody.IsSheetMetal(), un1, un2, peso, out Val2[6], InTable);
+                            }
+                            else { err = 3; }
                         }
                         else
                         {
@@ -389,6 +395,7 @@ namespace DWM.ExSw.Addin.Base
                             if (pesoTabela == "") { err = 3; info = "<ERRO#103>"; }
                         }
                     }
+                    else if(un1 == "PC") { err = 0; }
                     else
                     {
                         swComand.sw_GetAllvaluesProperty("Denominação", custPrpMgr, out pprVal1[0], out pprVal2[0]);
@@ -426,55 +433,111 @@ namespace DWM.ExSw.Addin.Base
             UN1 = string.Empty;
             UN2 = string.Empty;
             peso = string.Empty;
+
             if (pprMaterial != string.Empty)
             {
-                foreach (string[] var in XML_MATERIAIS)
+                string material;
+                if(ValTipoCod(pprMaterial, out material) == 0)
                 {
-                    if (var[0] != null)
+                    
+                    string cod = pprMaterial.Split(' ')[0];
+                    string desc = string.Join(" ", pprMaterial.Split(' ').Skip(1));
+
+                    string varCod = banco.GetCodigoDesc(cod);
+                    string varDesc = string.Join(" ", varCod.Split(' ').Skip(1));
+                    varCod = varCod.Split(' ')[0];
+                    
+
+                    if (cod == varCod)
                     {
-                        if (var[0].Length > 7 && pprMaterial.Length > 7)
+                        if(varDesc == desc) { return true; }
+                        return false;
+                    }
+
+                }
+                else if (ValTipoCod(pprMaterial, out material) == 1)
+                {
+                    string[] var = XML_MATERIAIS.Find(m => m[0].StartsWith(material));
+
+                    if (var != null)
+                    {
+                        for (int i = 0; i < banco.comercial_DATA.Count; i++)
                         {
-                            string codigoName = var[0].Substring(0, 6);
-                            string material = pprMaterial.Substring(0, 6);
-                            if (codigoName == material)
+                            if (material == banco.comercial_DATA[i])
                             {
-                                for (int i = 0; i < banco.comercial_DATA.Count; i++)
+                                bool intable = false;
+                                if (var[3] == banco.um_DATA[i]) { intable = true; }
+                                if (var[4] == banco.um_DATA[i]) { intable = true; }
+                                if (intable)
                                 {
-                                    if (codigoName == banco.comercial_DATA[i])
+                                    UN1 += var[3];
+                                    UN2 += var[4];
+                                    peso += var[5];
+                                    return true;
+                                }
+                                else
+                                {
+                                    if (var[3] == "" && var[4] == "")
                                     {
-                                        bool intable = false;
-                                        if (var[3] == banco.um_DATA[i]) { intable = true; }
-                                        if (var[4] == banco.um_DATA[i]) { intable = true; }
-                                        if (intable)
-                                        {
-                                            UN1 += var[3];
-                                            UN2 += var[4];
-                                            peso += var[5];
-                                            return true;
-                                        }
-                                        else
-                                        {
-                                            if (var[3] == "" && var[4] == "")
-                                            {
-                                                UN1 += banco.um_DATA[i];
-                                                return true;
-                                            }
-                                            else
-                                            {
-                                                MessageBox.Show($"Codigo: {pprMaterial} não está com a unidade de medida(m² ou m linear) igual a do banco de dados", "CADASTRO INVÁLIDO", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                            }
-                                        }
+                                        UN1 += banco.um_DATA[i];
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show($"Codigo: {pprMaterial} não está com a unidade de medida(m² ou m linear) igual a do banco de dados", "CADASTRO INVÁLIDO", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     }
                                 }
-
                             }
                         }
                     }
+                    else
+                    {
+                        for (int i = 0; i < banco.comercial_DATA.Count; i++)
+                        {
+                            if (material == banco.comercial_DATA[i])
+                            {
+                                UN1 += banco.um_DATA?[i];
+                                UN2 += banco.um_DATA?[i];
+                                peso += "0";
+                                return true;
+
+                            }
+                        }
+
+                    }
                 }
+
             }
             return false;
 
         }
+        public int ValTipoCod( string TextString, out string OutString)
+        {
+            string PadraoCodigo = @"^\d{3}\.\d{3}\.\d{4}$";
+            string PadraoFicticio = @"^F\d{2}\.\d{3}\.\d{4}$";
+            string Padraocomercial = @"^\d{6}$";
+            OutString = "";
+
+            for (int i =0; i < 13; i++)
+            {
+                OutString = TextString.Substring(0, i);
+                if (Regex.IsMatch(OutString, PadraoCodigo))//texto codigo padrao
+                {
+                    return 0;
+                }
+                else if (Regex.IsMatch(OutString, PadraoFicticio))//texto ficticio
+                {
+                    return 0;
+                }
+                else if (Regex.IsMatch(OutString, Padraocomercial))//texto comercial
+                {
+                    return 1;
+                }
+
+            }
+            return 3;
+        }
+
         #endregion
 
 
