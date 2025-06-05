@@ -210,8 +210,8 @@ namespace DWM.TaskPaneHost
                     }
                     Dictionary<string, List<string>> estrutura = new Dictionary<string, List<string>>();
                     string codigo = Codigo_txt.Text + revisao_txt.Text;
-                    estrutura = banco.GetEstrutura(codigo);
-                    list_estruturaBD.Items.Clear();
+                   // estrutura = banco.GetEstrutura(codigo);
+                    //list_estruturaBD.Items.Clear();
                     if (codigo != null)
                     {
                         foreach (var item in estrutura)
@@ -843,11 +843,13 @@ namespace DWM.TaskPaneHost
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (formEstrutura != null)
+            if (formEstrutura == null)
             {
-                formEstrutura = new Estrutura_main( this);
+                formEstrutura = new Estrutura_main( this,swModel,swApp);
                 formEstrutura.Show();
-                formEstrutura.GetValues(Codigo_txt.Text + revisao_txt.Text);
+                Form1 md = new Form1();
+                md.Show();
+                //formEstrutura.GetValues(Codigo_txt.Text + revisao_txt.Text);
             }
             else { formEstrutura.Activate(); }
 

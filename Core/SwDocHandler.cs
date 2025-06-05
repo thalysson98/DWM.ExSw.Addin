@@ -32,26 +32,26 @@ namespace DWM.ExSw.Addin.Core
 
         protected override void AttachAssemblyEvents(AssemblyDoc assm)
         {
-            m_Model.Selections.NewSelection += OnNewSelection;
-            m_Model.Selections.ClearSelection += OnClearSelection;
+            //m_Model.Selections.NewSelection += OnNewSelection;
+            //m_Model.Selections.ClearSelection += OnClearSelection;
             base.AttachAssemblyEvents(assm);
         }
 
 
         protected override void AttachPartEvents(PartDoc part)
         {
-            part.AddItemNotify += OnAddItemNotify;
+            //part.AddItemNotify += OnAddItemNotify;
         }
 
         protected override void DetachPartEvents(PartDoc part)
         {
-            part.AddItemNotify -= OnAddItemNotify;
+            //part.AddItemNotify -= OnAddItemNotify;
 
         }
         protected override void DetachAssemblyEvents(AssemblyDoc assm)
         {
-            m_Model.Selections.NewSelection -= OnNewSelection;
-            m_Model.Selections.ClearSelection -= OnClearSelection;
+            //m_Model.Selections.NewSelection -= OnNewSelection;
+            //m_Model.Selections.ClearSelection -= OnClearSelection;
 
         }
         protected override void OnInit(ISwApplication app, ISwDocument doc)
@@ -64,8 +64,8 @@ namespace DWM.ExSw.Addin.Core
 
         protected override void Dispose(bool disposing)
         {
-            m_Model.Selections.NewSelection -= OnNewSelection;
-            m_Model.Selections.ClearSelection -= OnClearSelection;
+            //m_Model.Selections.NewSelection -= OnNewSelection;
+            //m_Model.Selections.ClearSelection -= OnClearSelection;
             base.Dispose(disposing);
         }
 
@@ -78,20 +78,20 @@ namespace DWM.ExSw.Addin.Core
         private void OnNewSelection(IXDocument doc, IXSelObject selObject)
         {
 
-            ISwSelectionCollection sel = m_Model.Selections;
-            ISwComponent comp = (ISwComponent)sel.FirstOrDefault();
-            ModelDoc2 mode = comp.Component.IGetModelDoc();
-            paneUI.Verficacao((SldWorks)swApp.Sw, mode);
-            if (paneUI.formEstrutura != null)
-            {
-                paneUI.formEstrutura.GetValues("");
-            }
+            //ISwSelectionCollection sel = m_Model.Selections;
+            //ISwComponent comp = (ISwComponent)sel.FirstOrDefault();
+            //ModelDoc2 mode = comp.Component.IGetModelDoc();
+            //paneUI.Verficacao((SldWorks)swApp.Sw, mode);
+            //if (paneUI.formEstrutura != null)
+            //{
+            //    paneUI.formEstrutura.GetValues("");
+            //}
 
         }
         private void OnClearSelection(IXDocument doc)
         {
-            IModelDoc2  swModel = swApp.Sw.ActiveDoc as ModelDoc2;
-            if(swModel == m_Model.Model) { paneUI.Verficacao((SldWorks)swApp.Sw, (ModelDoc2)m_Model.Model); }
+            //IModelDoc2  swModel = swApp.Sw.ActiveDoc as ModelDoc2;
+            //if(swModel == m_Model.Model) { paneUI.Verficacao((SldWorks)swApp.Sw, (ModelDoc2)m_Model.Model); }
             
         }
 

@@ -122,9 +122,9 @@ namespace DWM.ExSw.Addin.DataSRV
 
         }
 
-        public Dictionary<string, List<string>> GetEstrutura(string codigo)
+        public Dictionary<string, List<string>> GetEstrutura(string codigo)//obtem a estrutura do codigo enviado
         {
-            databaseName = "TESTE";
+            databaseName = "DADOSADV2";
             string connectionString = $"Data Source={serverAddress};Initial Catalog={databaseName};User ID={username};Password={password};";
             Dictionary<string, List<string>> Estrutura_ = new Dictionary<string, List<string>>();
 
@@ -254,7 +254,7 @@ namespace DWM.ExSw.Addin.DataSRV
 
         //    return (vCod, vRev, vDesc);
         //}
-        public string ValidarRev(string VarCod, string vRev)
+        public string ValidarRev(string VarCod, string vRev)//retorna rev mais alta
         {
             string connectionString = $"Data Source={serverAddress};Initial Catalog={databaseName};User ID={username};Password={password};";
             SqlConnection connection = new SqlConnection(connectionString);
@@ -308,7 +308,7 @@ namespace DWM.ExSw.Addin.DataSRV
 
             return "";
         }
-        public string GetCodigoDesc(string VarCod)
+        public string GetCodigoDesc(string VarCod)//obtem o codigo e descrição e junta os dois
         {
             string connectionString = $"Data Source={serverAddress};Initial Catalog={databaseName};User ID={username};Password={password};";
             SqlConnection connection = new SqlConnection(connectionString);

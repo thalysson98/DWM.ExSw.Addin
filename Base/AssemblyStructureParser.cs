@@ -76,20 +76,27 @@ namespace DWM.ExSw.Addin.Base
             }
 
             // GetComponents(false) obtém apenas os componentes de nível superior.
-            object[] vRootComps = (object[])assyDoc.GetComponents(false);
+            object[] vRootComps = (object[])assyDoc.GetComponents(true);
+            List<Component2> pecatotal = new List<Component2>();
 
             if (vRootComps != null)
             {
                 foreach (object compObj in vRootComps)
                 {
                     Component2 rootSwComp = compObj as Component2;
+
                     if (rootSwComp != null && !rootSwComp.IsSuppressed())
                     {
-                        TreeNodeModel node = CreateSingleNodeModel(rootSwComp);
-                        if (node != null)
+                        if (!ContainsComponent(pecatotal.ToArray(), rootSwComp))
                         {
-                            topLevelNodes.Add(node);
+                            TreeNodeModel node = CreateSingleNodeModel(rootSwComp);
+                            if (node != null)
+                            {
+                                pecatotal.Add(rootSwComp);
+                                topLevelNodes.Add(node);
+                            }
                         }
+
                     }
                 }
             }
@@ -111,10 +118,13 @@ namespace DWM.ExSw.Addin.Base
             {
                 return null;
             }
-
+            swSpecialComands cmd = new swSpecialComands();
+            //cmd.sw_GetNameFile((ModelDoc2)swComponent);
+            ModelDoc2 model = (ModelDoc2)swComponent.GetModelDoc2();
+            if(model == null) { return null; }
             return new TreeNodeModel
             {
-                Name = swComponent.Name2, // Nome de exibição
+                Name = cmd.sw_GetNameFile(model), // Nome de exibição
                 Component = swComponent,    // Referência ao objeto Component2
                 UniqueID = swComponent.GetPathName(), // ID único
                 AreChildrenLoaded = false // Filhos não são carregados aqui
@@ -136,6 +146,7 @@ namespace DWM.ExSw.Addin.Base
 
             // Limpa filhos existentes (caso seja uma recarga ou dummy nodes)
             // parentNodeModel.Children.Clear(); // Opcional, dependendo da estratégia de dummy node
+            List<Component2> pecatotal = new List<Component2>();
 
             object[] vChildren = (object[])parentNodeModel.Component.GetChildren();
             if (vChildren != null)
@@ -145,10 +156,14 @@ namespace DWM.ExSw.Addin.Base
                     Component2 childSwComp = childObj as Component2;
                     if (childSwComp != null && !childSwComp.IsSuppressed())
                     {
-                        TreeNodeModel childNode = CreateSingleNodeModel(childSwComp);
-                        if (childNode != null)
+                        if (!ContainsComponent(pecatotal.ToArray(), childSwComp))
                         {
-                            parentNodeModel.Children.Add(childNode);
+                            TreeNodeModel childNode = CreateSingleNodeModel(childSwComp);
+                            if (childNode != null)
+                            {
+                                pecatotal.Add(childSwComp);
+                                parentNodeModel.Children.Add(childNode);
+                            }
                         }
                     }
                 }
@@ -200,73 +215,4 @@ namespace DWM.ExSw.Addin.Base
         }
     }
 
-    /*
-    ---------------------------------------------------------------------------------
-    Exemplo de como integrar com um TreeView do Windows Forms (coloque no seu Form):
-    ---------------------------------------------------------------------------------
-
-    // Supondo que você tenha:
-    // - um controle TreeView chamado 'myTreeView'
-    // - um botão chamado 'btn_atualizar'
-    // - uma instância do AssemblyStructureParser:
-    //   AssemblyStructureParser structureParser = new AssemblyStructureParser();
-    // - uma referência ao documento de montagem ativo do SOLIDWORKS:
-    //   AssemblyDoc swAssyDoc = (AssemblyDoc)swApp.ActiveDoc; (onde swApp é ISldWorks)
-
-    private void btn_atualizar_Click(object sender, EventArgs e)
-    {
-        if (swAssyDoc == null)
-        {
-            MessageBox.Show("Nenhum documento de montagem ativo.");
-            return;
-        }
-
-        myTreeView.Nodes.Clear(); // Limpa nós existentes
-
-        List<AssemblyStructureParser.TreeNodeModel> topLevelModels = structureParser.GetTopLevelNodes(swAssyDoc);
-
-        foreach (AssemblyStructureParser.TreeNodeModel model in topLevelModels)
-        {
-            TreeNode uiNode = new TreeNode(model.Name);
-            uiNode.Tag = model; // Armazena o modelo de dados no Tag do nó da UI
-
-            // Adiciona um nó "dummy" se o componente tiver filhos, para que o TreeView mostre o sinal de [+]
-            // Isso sinaliza ao usuário que o nó pode ser expandido.
-            if (model.HasSwChildren())
-            {
-                uiNode.Nodes.Add(new TreeNode("Carregando...")); // Nó temporário
-            }
-            myTreeView.Nodes.Add(uiNode);
-        }
-    }
-
-    private void myTreeView_BeforeExpand(object sender, TreeViewCancelEventArgs e)
-    {
-        TreeNode expandingUiNode = e.Node;
-        AssemblyStructureParser.TreeNodeModel model = expandingUiNode.Tag as AssemblyStructureParser.TreeNodeModel;
-
-        if (model != null && !model.AreChildrenLoaded)
-        {
-            // Remove o nó "dummy" (se existir)
-            expandingUiNode.Nodes.Clear();
-
-            // Carrega os filhos reais do modelo de dados
-            structureParser.LoadChildrenForNodeModel(model);
-
-            // Popula a UI com os filhos carregados
-            foreach (AssemblyStructureParser.TreeNodeModel childModel in model.Children)
-            {
-                TreeNode uiChildNode = new TreeNode(childModel.Name);
-                uiChildNode.Tag = childModel;
-
-                // Adiciona um nó "dummy" para o filho, se ele também tiver filhos não carregados
-                if (childModel.HasSwChildren())
-                {
-                    uiChildNode.Nodes.Add(new TreeNode("Carregando..."));
-                }
-                expandingUiNode.Nodes.Add(uiChildNode);
-            }
-        }
-    }
-    */
 }
