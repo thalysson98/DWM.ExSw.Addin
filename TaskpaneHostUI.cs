@@ -208,24 +208,6 @@ namespace DWM.TaskPaneHost
                     {
                         revisao_txt.Text = "A";
                     }
-                    Dictionary<string, List<string>> estrutura = new Dictionary<string, List<string>>();
-                    string codigo = Codigo_txt.Text + revisao_txt.Text;
-                   // estrutura = banco.GetEstrutura(codigo);
-                    //list_estruturaBD.Items.Clear();
-                    if (codigo != null)
-                    {
-                        foreach (var item in estrutura)
-                        {
-                            string chave = item.Key;
-                            List<string> valores = item.Value;
-
-                            Console.WriteLine($"Chave: {chave}");
-                            Console.WriteLine("Valores:");
-                            var items = new ListViewItem(new string[] { (string)valores[2], (string)valores[1], $"{(string)valores[3]} X {(string)valores[4]}", "", (string)valores[5] }, "");
-                            list_estruturaBD.Items.Add(items);
-
-                        }
-                    }
 
                 }
 

@@ -57,13 +57,6 @@ namespace DWM.TaskPaneHost
             this.pl = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pb = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.info = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.list_estruturaBD = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.revisorData_txt = new System.Windows.Forms.TextBox();
             this.desenhistaData_txt = new System.Windows.Forms.TextBox();
@@ -135,7 +128,7 @@ namespace DWM.TaskPaneHost
             // abrirVortexToolStripMenuItem
             // 
             this.abrirVortexToolStripMenuItem.Name = "abrirVortexToolStripMenuItem";
-            this.abrirVortexToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
+            this.abrirVortexToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
             this.abrirVortexToolStripMenuItem.Text = "Abrir Vortex";
             this.abrirVortexToolStripMenuItem.Click += new System.EventHandler(this.abrirVortexToolStripMenuItem_Click);
             // 
@@ -268,7 +261,6 @@ namespace DWM.TaskPaneHost
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.list_estruturaBD);
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
             this.splitContainer1.Panel2.Controls.Add(this.Atualizar_bt);
             this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
@@ -277,7 +269,7 @@ namespace DWM.TaskPaneHost
             this.splitContainer1.Panel2.Controls.Add(this.calcPB_bt);
             this.splitContainer1.Panel2.Controls.Add(this.pesobt_txt);
             this.splitContainer1.Size = new System.Drawing.Size(680, 829);
-            this.splitContainer1.SplitterDistance = 228;
+            this.splitContainer1.SplitterDistance = 343;
             this.splitContainer1.TabIndex = 81;
             // 
             // Estrutura_list
@@ -300,7 +292,7 @@ namespace DWM.TaskPaneHost
             this.Estrutura_list.Location = new System.Drawing.Point(3, 4);
             this.Estrutura_list.MultiSelect = false;
             this.Estrutura_list.Name = "Estrutura_list";
-            this.Estrutura_list.Size = new System.Drawing.Size(674, 221);
+            this.Estrutura_list.Size = new System.Drawing.Size(674, 336);
             this.Estrutura_list.TabIndex = 44;
             this.Estrutura_list.UseCompatibleStateImageBehavior = false;
             this.Estrutura_list.View = System.Windows.Forms.View.Details;
@@ -342,66 +334,6 @@ namespace DWM.TaskPaneHost
             this.info.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.info.Width = 80;
             // 
-            // list_estruturaBD
-            // 
-            this.list_estruturaBD.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.list_estruturaBD.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.list_estruturaBD.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6});
-            this.list_estruturaBD.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.list_estruturaBD.FullRowSelect = true;
-            this.list_estruturaBD.GridLines = true;
-            this.list_estruturaBD.HideSelection = false;
-            this.list_estruturaBD.Location = new System.Drawing.Point(3, 3);
-            this.list_estruturaBD.MultiSelect = false;
-            this.list_estruturaBD.Name = "list_estruturaBD";
-            this.list_estruturaBD.Size = new System.Drawing.Size(674, 309);
-            this.list_estruturaBD.TabIndex = 81;
-            this.list_estruturaBD.UseCompatibleStateImageBehavior = false;
-            this.list_estruturaBD.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Qtd.";
-            this.columnHeader1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader1.Width = 35;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Material";
-            this.columnHeader2.Width = 350;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Medida de Corte";
-            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader3.Width = 110;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "PL(Un)";
-            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader4.Width = 50;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "PB(Un)";
-            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader5.Width = 50;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "Info";
-            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader6.Width = 80;
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.revisorData_txt);
@@ -419,7 +351,7 @@ namespace DWM.TaskPaneHost
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(3, 365);
+            this.groupBox2.Location = new System.Drawing.Point(3, 50);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(258, 165);
             this.groupBox2.TabIndex = 78;
@@ -431,7 +363,7 @@ namespace DWM.TaskPaneHost
             this.revisorData_txt.Name = "revisorData_txt";
             this.revisorData_txt.Size = new System.Drawing.Size(65, 22);
             this.revisorData_txt.TabIndex = 82;
-            this.revisorData_txt.Text = "00/00/0000";
+            this.revisorData_txt.Text = "00-00-0000";
             this.revisorData_txt.TextChanged += new System.EventHandler(this.revisorData_txt_TextChanged);
             // 
             // desenhistaData_txt
@@ -440,7 +372,7 @@ namespace DWM.TaskPaneHost
             this.desenhistaData_txt.Name = "desenhistaData_txt";
             this.desenhistaData_txt.Size = new System.Drawing.Size(65, 22);
             this.desenhistaData_txt.TabIndex = 81;
-            this.desenhistaData_txt.Text = "00/00/0000";
+            this.desenhistaData_txt.Text = "00-00-0000";
             this.desenhistaData_txt.TextChanged += new System.EventHandler(this.desenhistaData_txt_TextChanged);
             // 
             // projetistaData_txt
@@ -449,7 +381,7 @@ namespace DWM.TaskPaneHost
             this.projetistaData_txt.Name = "projetistaData_txt";
             this.projetistaData_txt.Size = new System.Drawing.Size(65, 22);
             this.projetistaData_txt.TabIndex = 80;
-            this.projetistaData_txt.Text = "00/00/0000";
+            this.projetistaData_txt.Text = "00-00-0000";
             this.projetistaData_txt.TextChanged += new System.EventHandler(this.projetistaData_txt_TextChanged);
             // 
             // revisor_cb
@@ -582,7 +514,7 @@ namespace DWM.TaskPaneHost
             this.Atualizar_bt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Atualizar_bt.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.Atualizar_bt.Image = global::DWM.ExSw.Addin.Properties.Resources.atualizar_20x20;
-            this.Atualizar_bt.Location = new System.Drawing.Point(3, 318);
+            this.Atualizar_bt.Location = new System.Drawing.Point(3, 3);
             this.Atualizar_bt.Name = "Atualizar_bt";
             this.Atualizar_bt.Size = new System.Drawing.Size(36, 35);
             this.Atualizar_bt.TabIndex = 43;
@@ -596,7 +528,7 @@ namespace DWM.TaskPaneHost
             this.groupBox1.Controls.Add(this.textBox3);
             this.groupBox1.Controls.Add(this.das);
             this.groupBox1.Controls.Add(this.checkBox1);
-            this.groupBox1.Location = new System.Drawing.Point(270, 365);
+            this.groupBox1.Location = new System.Drawing.Point(270, 50);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(198, 165);
             this.groupBox1.TabIndex = 77;
@@ -652,7 +584,7 @@ namespace DWM.TaskPaneHost
             // 
             this.ListaDeCorte_check.AutoSize = true;
             this.ListaDeCorte_check.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.ListaDeCorte_check.Location = new System.Drawing.Point(45, 328);
+            this.ListaDeCorte_check.Location = new System.Drawing.Point(45, 13);
             this.ListaDeCorte_check.Name = "ListaDeCorte_check";
             this.ListaDeCorte_check.Size = new System.Drawing.Size(177, 17);
             this.ListaDeCorte_check.TabIndex = 45;
@@ -664,7 +596,7 @@ namespace DWM.TaskPaneHost
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.label1.Location = new System.Drawing.Point(485, 329);
+            this.label1.Location = new System.Drawing.Point(485, 14);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 13);
             this.label1.TabIndex = 74;
@@ -674,7 +606,7 @@ namespace DWM.TaskPaneHost
             // 
             this.calcPB_bt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.calcPB_bt.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.calcPB_bt.Location = new System.Drawing.Point(635, 324);
+            this.calcPB_bt.Location = new System.Drawing.Point(635, 9);
             this.calcPB_bt.Name = "calcPB_bt";
             this.calcPB_bt.Size = new System.Drawing.Size(33, 22);
             this.calcPB_bt.TabIndex = 80;
@@ -685,7 +617,7 @@ namespace DWM.TaskPaneHost
             // pesobt_txt
             // 
             this.pesobt_txt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pesobt_txt.Location = new System.Drawing.Point(563, 324);
+            this.pesobt_txt.Location = new System.Drawing.Point(563, 9);
             this.pesobt_txt.Name = "pesobt_txt";
             this.pesobt_txt.Size = new System.Drawing.Size(66, 22);
             this.pesobt_txt.TabIndex = 75;
@@ -805,7 +737,7 @@ namespace DWM.TaskPaneHost
             this.label12.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.label12.Location = new System.Drawing.Point(360, 5);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(30, 13);
+            this.label12.Size = new System.Drawing.Size(29, 13);
             this.label12.TabIndex = 68;
             this.label12.Text = "Tipo";
             // 
@@ -1019,12 +951,5 @@ namespace DWM.TaskPaneHost
         private System.Windows.Forms.Button calcPB_bt;
         private SplitContainer splitContainer1;
         private ToolStripMenuItem abrirVortexToolStripMenuItem;
-        public ListView list_estruturaBD;
-        private ColumnHeader columnHeader1;
-        private ColumnHeader columnHeader2;
-        private ColumnHeader columnHeader3;
-        private ColumnHeader columnHeader4;
-        private ColumnHeader columnHeader5;
-        private ColumnHeader columnHeader6;
     }
 }
