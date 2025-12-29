@@ -17,7 +17,7 @@ namespace DWM.ExSw.Addin.Base
             List<MaterialInfo> materials = new List<MaterialInfo>();
             string filePath ;
             filePath = Settings.Default.XMLMaterial;
-            filePath = "C:\\Cardall\\ASSISTENTES\\configuracoesSW\\Materiais\\Cardall.sldmat";
+            filePath = "C:\\Users\\thaly\\source\\repos\\thalysson98\\DWM.ExSw.Addin\\Resources\\Materiais\\Cardall.sldmat";
 
             for (int i = 0; filePath.Length> i; i++)
             {

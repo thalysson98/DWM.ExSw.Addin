@@ -24,10 +24,14 @@ namespace DWM.ExSw.Addin.DataSRV
         public Dictionary<string, List<string>> EstruturaBanco { get; set; } = new Dictionary<string, List<string>>();
 
         #region Dados Banco
-        string serverAddress = "192.168.2.234";
-        string username = "ska";
-        string password = "0$6n?3flB<8>,bJi<";
-        string databaseName = "DADOSADV2";
+        string serverAddress = sql_config.Default.serverAddress.Trim();
+        //string username = "ska";
+        //string password = "0$6n?3flB<8>,bJi<";
+        string username = sql_config.Default.username.Trim();
+        string password = sql_config.Default.password.Trim();
+        string databaseName = sql_config.Default.databaseName.Trim();
+        string tableProdutos = sql_config.Default.tabelaProdutos.Trim();
+        string tableEstrutura = sql_config.Default.tabelaEstrutura.Trim();
         #endregion
 
 
@@ -40,7 +44,8 @@ namespace DWM.ExSw.Addin.DataSRV
             SqlDataReader reader = null;
             try
             {
-                string query = "SELECT * FROM dbo.produtos;";
+                //string query = "SELECT * FROM dbo.produtos;";
+                string query = $"SELECT * FROM {tableProdutos};";
                 connection.Open();
                 SqlCommand command = new SqlCommand(query, connection);
                 reader = command.ExecuteReader();
@@ -124,7 +129,7 @@ namespace DWM.ExSw.Addin.DataSRV
 
         public Dictionary<string, List<string>> GetEstrutura(string codigo)//obtem a estrutura do codigo enviado
         {
-            databaseName = "DADOSADV2";
+            //databaseName = "DADOSADV2";
             string connectionString = $"Data Source={serverAddress};Initial Catalog={databaseName};User ID={username};Password={password};";
             Dictionary<string, List<string>> Estrutura_ = new Dictionary<string, List<string>>();
 
@@ -133,11 +138,11 @@ namespace DWM.ExSw.Addin.DataSRV
 
             try
             {
-                string query = @"
+                string query = $@"
                         WITH CTE AS (
                             SELECT *,
                                 ROW_NUMBER() OVER (PARTITION BY G1_COD, G1_COMP, G1_QTDUNIT,G1_LARGURA,G1_COMPR ORDER BY G1_INI DESC) AS rn
-                            FROM dbo.SG1010
+                            FROM {tableEstrutura}
                             WHERE G1_COD = @codigo
                         )
                         SELECT *
@@ -145,7 +150,7 @@ namespace DWM.ExSw.Addin.DataSRV
                         WHERE rn = 1
                         AND G1_INI = (
                             SELECT MAX(G1_INI)
-                            FROM dbo.SG1010
+                            FROM {tableEstrutura}
                             WHERE G1_COD = @codigo
                         )";
                 int j = 0;
@@ -264,7 +269,7 @@ namespace DWM.ExSw.Addin.DataSRV
             {
                 string val = "";
                 string query = $@"SELECT * 
-                                    FROM dbo.SB1010 
+                                    FROM {tableProdutos}
                                     WHERE LEN(B1_COD) > 1
                                     AND LEFT(B1_COD, LEN(B1_COD) - 1) = @codBase;";
 
@@ -317,7 +322,7 @@ namespace DWM.ExSw.Addin.DataSRV
             try
             {
                 string val = "";
-                string query = $"SELECT * FROM dbo.produtos WHERE B1_COD = '{VarCod}';";
+                string query = $"SELECT * FROM {tableProdutos} WHERE B1_COD = '{VarCod}';";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@codBase", VarCod);
 

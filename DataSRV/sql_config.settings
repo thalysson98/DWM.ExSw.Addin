@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DWM.ExSw.Addin.DataSRV" GeneratedClassName="sql_config">
+  <Profiles />
+  <Settings>
+    <Setting Name="serverAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">THALYSSON</Value>
+    </Setting>
+    <Setting Name="username" Type="System.String" Scope="User">
+      <Value Profile="(Default)">thalysson</Value>
+    </Setting>
+    <Setting Name="password" Type="System.String" Scope="User">
+      <Value Profile="(Default)">marcelino123</Value>
+    </Setting>
+    <Setting Name="databaseName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">VORTEX_SRV</Value>
+    </Setting>
+    <Setting Name="tabelaProdutos" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DADOSADV2</Value>
+    </Setting>
+    <Setting Name="tabelaEstrutura" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SB1010</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
