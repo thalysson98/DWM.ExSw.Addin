@@ -57,20 +57,20 @@
       <HintPath>..\..\..\..\..\..\..\Program Files\SOLIDWORKS Corp\SOLIDWORKS\api\redist\SolidWorks.Interop.cosworks.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
-    <Reference Include="SolidWorks.Interop.sldworks, Version=32.0.1.4, Culture=neutral, PublicKeyToken=7c4797c3e4eeac03, processorArchitecture=MSIL">
-      <HintPath>packages\Xarial.XCad.SolidWorks.0.8.1\lib\net461\SolidWorks.Interop.sldworks.dll</HintPath>
+    <Reference Include="SolidWorks.Interop.sldworks, Version=33.0.0.5050, Culture=neutral, PublicKeyToken=7c4797c3e4eeac03, processorArchitecture=MSIL">
+      <HintPath>packages\Xarial.XCad.SolidWorks.0.8.2\lib\net461\SolidWorks.Interop.sldworks.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="SolidWorks.Interop.swcommands">
       <HintPath>..\..\..\..\..\Program Files\SOLIDWORKS Corp 2023\SOLIDWORKS\api\redist\SolidWorks.Interop.swcommands.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
-    <Reference Include="SolidWorks.Interop.swconst, Version=32.0.1.4, Culture=neutral, PublicKeyToken=19f43e188e4269d8, processorArchitecture=MSIL">
-      <HintPath>packages\Xarial.XCad.SolidWorks.0.8.1\lib\net461\SolidWorks.Interop.swconst.dll</HintPath>
+    <Reference Include="SolidWorks.Interop.swconst, Version=33.0.0.5050, Culture=neutral, PublicKeyToken=19f43e188e4269d8, processorArchitecture=MSIL">
+      <HintPath>packages\Xarial.XCad.SolidWorks.0.8.2\lib\net461\SolidWorks.Interop.swconst.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
-    <Reference Include="SolidWorks.Interop.swpublished, Version=32.0.1.4, Culture=neutral, PublicKeyToken=89a97bdc5284e6d8, processorArchitecture=MSIL">
-      <HintPath>packages\Xarial.XCad.SolidWorks.0.8.1\lib\net461\SolidWorks.Interop.swpublished.dll</HintPath>
+    <Reference Include="SolidWorks.Interop.swpublished, Version=33.0.0.5050, Culture=neutral, PublicKeyToken=89a97bdc5284e6d8, processorArchitecture=MSIL">
+      <HintPath>packages\Xarial.XCad.SolidWorks.0.8.2\lib\net461\SolidWorks.Interop.swpublished.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="solidworkstools">
@@ -92,14 +92,14 @@
     <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
-    <Reference Include="Xarial.XCad, Version=0.8.1.5169, Culture=neutral, PublicKeyToken=60dcaf351d4060db, processorArchitecture=MSIL">
-      <HintPath>packages\Xarial.XCad.0.8.1\lib\net461\Xarial.XCad.dll</HintPath>
+    <Reference Include="Xarial.XCad, Version=0.8.2.5232, Culture=neutral, PublicKeyToken=60dcaf351d4060db, processorArchitecture=MSIL">
+      <HintPath>packages\Xarial.XCad.0.8.2\lib\net461\Xarial.XCad.dll</HintPath>
     </Reference>
-    <Reference Include="Xarial.XCad.SolidWorks, Version=0.8.1.5169, Culture=neutral, PublicKeyToken=60dcaf351d4060db, processorArchitecture=MSIL">
-      <HintPath>packages\Xarial.XCad.SolidWorks.0.8.1\lib\net461\Xarial.XCad.SolidWorks.dll</HintPath>
+    <Reference Include="Xarial.XCad.SolidWorks, Version=0.8.2.5232, Culture=neutral, PublicKeyToken=60dcaf351d4060db, processorArchitecture=MSIL">
+      <HintPath>packages\Xarial.XCad.SolidWorks.0.8.2\lib\net461\Xarial.XCad.SolidWorks.dll</HintPath>
     </Reference>
-    <Reference Include="Xarial.XCad.Toolkit, Version=0.8.1.5169, Culture=neutral, PublicKeyToken=60dcaf351d4060db, processorArchitecture=MSIL">
-      <HintPath>packages\Xarial.XCad.Toolkit.0.8.1\lib\net461\Xarial.XCad.Toolkit.dll</HintPath>
+    <Reference Include="Xarial.XCad.Toolkit, Version=0.8.2.5232, Culture=neutral, PublicKeyToken=60dcaf351d4060db, processorArchitecture=MSIL">
+      <HintPath>packages\Xarial.XCad.Toolkit.0.8.2\lib\net461\Xarial.XCad.Toolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +118,11 @@
     </Compile>
     <Compile Include="DataSRV\comerciais_buscador.Designer.cs">
       <DependentUpon>comerciais_buscador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSRV\sql_config.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>sql_config.settings</DependentUpon>
     </Compile>
     <Compile Include="DataSRV\SQLCommands.cs" />
     <Compile Include="Estrutura_main.cs">
@@ -209,6 +214,10 @@
     <Content Include="Resources\Icons\salvar_20x20.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="DataSRV\sql_config.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>sql_config.Designer.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
     <None Include="Resources\main.png" />
   </ItemGroup>
@@ -224,11 +233,11 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <Import Project="packages\Xarial.XCad.SolidWorks.0.8.1\build\Xarial.XCad.SolidWorks.targets" Condition="Exists('packages\Xarial.XCad.SolidWorks.0.8.1\build\Xarial.XCad.SolidWorks.targets')" />
+  <Import Project="packages\Xarial.XCad.SolidWorks.0.8.2\build\Xarial.XCad.SolidWorks.targets" Condition="Exists('packages\Xarial.XCad.SolidWorks.0.8.2\build\Xarial.XCad.SolidWorks.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Xarial.XCad.SolidWorks.0.8.1\build\Xarial.XCad.SolidWorks.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Xarial.XCad.SolidWorks.0.8.1\build\Xarial.XCad.SolidWorks.targets'))" />
+    <Error Condition="!Exists('packages\Xarial.XCad.SolidWorks.0.8.2\build\Xarial.XCad.SolidWorks.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Xarial.XCad.SolidWorks.0.8.2\build\Xarial.XCad.SolidWorks.targets'))" />
   </Target>
 </Project>
