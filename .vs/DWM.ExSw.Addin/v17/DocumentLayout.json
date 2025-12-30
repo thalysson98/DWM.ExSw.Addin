@@ -3,16 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|c:\\users\\thaly\\onedrive\\documentos\\github\\dwm.exsw.addin\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|c:\\users\\thaly\\onedrive\\documentos\\github\\dwm.exsw.addin\\services\\cardallvalueservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|solutionrelative:services\\cardallvalueservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|c:\\users\\thaly\\onedrive\\documentos\\github\\dwm.exsw.addin\\taskpanehostui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|solutionrelative:taskpanehostui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|c:\\users\\thaly\\onedrive\\documentos\\github\\dwm.exsw.addin\\base\\clientcomands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|solutionrelative:base\\clientcomands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|c:\\users\\thaly\\onedrive\\documentos\\github\\dwm.exsw.addin\\taskpanehostui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|solutionrelative:taskpanehostui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\taskpanehostui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|solutionrelative:taskpanehostui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|c:\\users\\thaly\\onedrive\\documentos\\github\\dwm.exsw.addin\\validation\\codigo\\codigovalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|solutionrelative:validation\\codigo\\codigovalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|c:\\users\\thaly\\onedrive\\documentos\\github\\dwm.exsw.addin\\validation\\codigo\\codigovalidationresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|solutionrelative:validation\\codigo\\codigovalidationresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|c:\\users\\thaly\\onedrive\\documentos\\github\\dwm.exsw.addin\\validation\\codigo\\codigoerrortype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|solutionrelative:validation\\codigo\\codigoerrortype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|c:\\users\\thaly\\onedrive\\documentos\\github\\dwm.exsw.addin\\validation\\formfieldvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7F17322D-15FE-4B8A-BA52-2390C2A60A1F}|DWM.ExSw.Addin.csproj|solutionrelative:validation\\formfieldvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,38 +55,104 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Form1.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\Form1.cs",
-              "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\Form1.cs [Design]",
-              "RelativeToolTip": "Form1.cs [Design]",
+              "Title": "CardallValueService.cs",
+              "DocumentMoniker": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\Services\\CardallValueService.cs",
+              "RelativeDocumentMoniker": "Services\\CardallValueService.cs",
+              "ToolTip": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\Services\\CardallValueService.cs",
+              "RelativeToolTip": "Services\\CardallValueService.cs",
+              "ViewState": "AQIAAC4AAAAAAAAAAAAAAEEAAABbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-29T13:53:25.321Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-12-30T16:38:44.542Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "TaskpaneHostUI.cs",
-              "DocumentMoniker": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\TaskpaneHostUI.cs",
-              "RelativeDocumentMoniker": "TaskpaneHostUI.cs",
-              "ToolTip": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\TaskpaneHostUI.cs",
-              "RelativeToolTip": "TaskpaneHostUI.cs",
-              "ViewState": "AQIAACIDAAAAAAAAAAAAADQDAAAtAAAA",
+              "Title": "ClientComands.cs",
+              "DocumentMoniker": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\Base\\ClientComands.cs",
+              "RelativeDocumentMoniker": "Base\\ClientComands.cs",
+              "ToolTip": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\Base\\ClientComands.cs",
+              "RelativeToolTip": "Base\\ClientComands.cs",
+              "ViewState": "AQIAAEwAAAAAAAAAAAAAAGAAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-29T13:38:53.995Z",
+              "WhenOpened": "2025-12-30T16:33:08.697Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CodigoValidator.cs",
+              "DocumentMoniker": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\Validation\\Codigo\\CodigoValidator.cs",
+              "RelativeDocumentMoniker": "Validation\\Codigo\\CodigoValidator.cs",
+              "ToolTip": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\Validation\\Codigo\\CodigoValidator.cs",
+              "RelativeToolTip": "Validation\\Codigo\\CodigoValidator.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAgwCMAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-30T16:32:53.049Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CodigoValidationResult.cs",
+              "DocumentMoniker": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\Validation\\Codigo\\CodigoValidationResult.cs",
+              "RelativeDocumentMoniker": "Validation\\Codigo\\CodigoValidationResult.cs",
+              "ToolTip": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\Validation\\Codigo\\CodigoValidationResult.cs",
+              "RelativeToolTip": "Validation\\Codigo\\CodigoValidationResult.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-30T16:32:52.073Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CodigoErrorType.cs",
+              "DocumentMoniker": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\Validation\\Codigo\\CodigoErrorType.cs",
+              "RelativeDocumentMoniker": "Validation\\Codigo\\CodigoErrorType.cs",
+              "ToolTip": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\Validation\\Codigo\\CodigoErrorType.cs",
+              "RelativeToolTip": "Validation\\Codigo\\CodigoErrorType.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-30T16:32:51.025Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FormFieldValidator.cs",
+              "DocumentMoniker": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\Validation\\FormFieldValidator.cs",
+              "RelativeDocumentMoniker": "Validation\\FormFieldValidator.cs",
+              "ToolTip": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\Validation\\FormFieldValidator.cs",
+              "RelativeToolTip": "Validation\\FormFieldValidator.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-30T16:32:39.242Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "TaskpaneHostUI.cs",
+              "DocumentMoniker": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\TaskpaneHostUI.cs",
+              "RelativeDocumentMoniker": "TaskpaneHostUI.cs",
+              "ToolTip": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\TaskpaneHostUI.cs",
+              "RelativeToolTip": "TaskpaneHostUI.cs",
+              "ViewState": "AQIAAMQAAAAAAAAAAAAAAM8AAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-30T16:26:35.937Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "TaskpaneHostUI.cs [Design]",
               "DocumentMoniker": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\TaskpaneHostUI.cs",
               "RelativeDocumentMoniker": "TaskpaneHostUI.cs",
               "ToolTip": "C:\\Users\\thaly\\OneDrive\\Documentos\\GitHub\\DWM.ExSw.Addin\\TaskpaneHostUI.cs [Design]",
               "RelativeToolTip": "TaskpaneHostUI.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-29T13:35:36.142Z",
+              "WhenOpened": "2025-12-30T16:26:32.628Z",
               "EditorCaption": " [Design]"
             }
           ]

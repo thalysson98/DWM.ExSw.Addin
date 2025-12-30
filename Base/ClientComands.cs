@@ -195,9 +195,88 @@ namespace DWM.ExSw.Addin.Base
                 return "'" + stNomeDimensao + "'";
             }
         }
+        public int ValidandoDenominacao(
+           bool comercial,
+           string denominacaoGerada,
+           string material,
+           string codigo,
+           string revisao)
+        {
+            int err = 0;
 
+            if (!comercial)
+            {
+                if (string.IsNullOrWhiteSpace(codigo) ||
+                    string.IsNullOrWhiteSpace(revisao))
+                {
+                    return 3;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(denominacaoGerada) ||
+                string.IsNullOrWhiteSpace(material))
+            {
+                return 2;
+            }
+
+            if (denominacaoGerada != material)
+            {
+                return 2;
+            }
+
+            return err;
+        }
+        public string GerarDenominacao(
+                bool comercial,
+                string codigo,
+                string revisao,
+                string denominacaoBase)
+        {
+            if (comercial)
+                return denominacaoBase;
+
+            return $"{codigo}{revisao} {denominacaoBase}";
+        }
         #endregion
 
+        #region Responsaveis
+        public int ValidarResponsavel(
+                string texto,
+                string valorPropriedade)
+        {
+            if (string.IsNullOrWhiteSpace(texto))
+                return 1;
+
+            // nome.sobrenome
+            string padrao = @"^[a-zA-Z]+\.[a-zA-Z]+$";
+
+            if (!Regex.IsMatch(texto, padrao))
+                return 2;
+
+            if (texto != valorPropriedade)
+                return 1;
+
+            return 0;
+        }
+        public int ValidarData(
+                string texto,
+                string valorPropriedade)
+        {
+            if (string.IsNullOrWhiteSpace(texto))
+                return 1;
+
+            string padrao = @"^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}$";
+
+            if (!Regex.IsMatch(texto, padrao))
+                return 2;
+
+            if (texto != valorPropriedade)
+                return 1;
+
+            return 0;
+        }
+
+        #endregion
         #region Obter Prorpiedades
         public string GetCodigo(ModelDoc2 model)
         {

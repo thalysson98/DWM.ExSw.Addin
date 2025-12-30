@@ -1,34 +1,25 @@
 ﻿using DWM.ExSw.Addin;
 using DWM.ExSw.Addin.Base;
 using DWM.ExSw.Addin.Config;
-using DWM.ExSw.Addin.setup.info;
+using DWM.ExSw.Addin.Core;
+using DWM.ExSw.Addin.DataSRV;
+using DWM.ExSw.Addin.Properties;
 using DWM.ExSw.Addin.setup;
+using DWM.ExSw.Addin.setup.info;
+using DWM.ExSw.Addin.UI;
+using DWM.ExSw.Addin.Validation;
+using DWM.ExSw.Addin.Validation.Codigo;
+using DWM.ExSw.Addin.Validation.Revisao;
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Media;
-using System.IO;
-using DWM.ExSw.Addin.Properties;
-using Microsoft.SqlServer.Server;
-using static System.Windows.Forms.DataFormats;
-using DWM.ExSw.Addin.DataSRV;
-using DWM.ExSw.Addin.Core;
-using System.Text.RegularExpressions;
 using System.Diagnostics;
-using System.Net.Sockets;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using Xarial.XCad.Base.Attributes;
-using Xarial.XCad.SolidWorks;
-using Xarial.XCad.SolidWorks.Documents;
-using Xarial.XCad;
 
 namespace DWM.TaskPaneHost
 {
@@ -53,20 +44,22 @@ namespace DWM.TaskPaneHost
         Ppr ppr;
         ErrorList errors;
         public cardallData banco;
+        private CardallValueService _valueService;
+
         #endregion
         public TaskpaneHostUI()
         {
-            if(Settings.Default.DataServer == false)
+            if (Settings.Default.DataServer == false)
             {
                 banco = new cardallData();
                 banco.Main();
 
             }
-            if (Settings.Default.XMLMaterial !="") 
+            if (Settings.Default.XMLMaterial != "")
             {
                 materiais_bc = new DataMaterial();
                 XML_MATERIAIS = materiais_bc.lista_material(materiais_bc);
-                
+
             }
             
             vortexcomands = new Vortex_In();
@@ -75,6 +68,7 @@ namespace DWM.TaskPaneHost
             errors = new ErrorList();
             ppr = new Ppr();
             cardalcomands.loadData(banco, XML_MATERIAIS);
+            _valueService = new CardallValueService(swComands, cardalcomands, ppr);
             InitializeComponent();
 
         }
@@ -96,12 +90,12 @@ namespace DWM.TaskPaneHost
             }
         }
 
-        public void Verficacao(SldWorks app,ModelDoc2 model)
+        public void Verficacao(SldWorks app, ModelDoc2 model)
         {
             if (app != null)
             {
                 Estrutura_list.Items.Clear();
-                if (model != null ) 
+                if (model != null)
                 {
                     swModel = model;
                     swApp = app;
@@ -116,7 +110,7 @@ namespace DWM.TaskPaneHost
                     {
                         ObterValores();
                     }
-                    else if((int)swModel.GetType() == (int)swDocumentTypes_e.swDocDRAWING)
+                    else if ((int)swModel.GetType() == (int)swDocumentTypes_e.swDocDRAWING)
                     {
                         DefaultForms(swApp);
                     }
@@ -154,7 +148,7 @@ namespace DWM.TaskPaneHost
             #endregion
 
             //ListaDeCorte_check.Checked = false;
-            
+
 
             #region Colors Labels
             Codigo_txt.BackColor = colors.Item1;
@@ -167,14 +161,14 @@ namespace DWM.TaskPaneHost
             revisao_txt.ForeColor = colors.Item2;
 
             projetista_cb.BackColor = colors.Item1;
-            projetista_cb.ForeColor= colors.Item2;
+            projetista_cb.ForeColor = colors.Item2;
             projetistaData_txt.BackColor = colors.Item1;
             projetistaData_txt.ForeColor = colors.Item2;
 
             desenhista_cb.BackColor = colors.Item1;
             desenhista_cb.ForeColor = colors.Item2;
-            desenhistaData_txt.BackColor  = colors.Item1;
-            desenhistaData_txt.ForeColor=colors.Item2;
+            desenhistaData_txt.BackColor = colors.Item1;
+            desenhistaData_txt.ForeColor = colors.Item2;
 
             revisor_cb.BackColor = colors.Item1;
             revisor_cb.ForeColor = colors.Item2;
@@ -185,67 +179,98 @@ namespace DWM.TaskPaneHost
             Estrutura_list.Items.Clear();
             Estrutura_list.Groups.Clear();
         }
+        private void AplicarValores(CardallFormData d)
+        {
+            Codigo_txt.Text = d.Codigo;
+            revisao_txt.Text = d.Revisao;
+
+            textDenominacao_txt.Text = d.DenominacaoOriginal;
+            Denominacao_txt.Text = d.DenominacaoFinal;
+            material_txt.Text = d.Material;
+
+            projetista_cb.Text = d.Projetista;
+            projetistaData_txt.Text = d.ProjetistaData;
+
+            desenhista_cb.Text = d.Desenhista;
+            desenhistaData_txt.Text = d.DesenhistaData;
+
+            revisor_cb.Text = d.Revisor;
+            revisorData_txt.Text = d.RevisorData;
+
+            tipo_cb.Text = d.Tipo;
+            sub_cb.Text = d.SubGrupo;
+            unidade_cb.Text = d.Unidade;
+
+            pesobt_txt.Text = d.PesoBruto;
+        }
         private void ObterValores()
         {
-            int err;
-            string denominacao;
-            string revisao;
-            string material;
-            string strVar;
-            if(swModel != null)
-            {
-                #region APLICANDO PROPRIEDADES
-                if (!Comercial)
-                {
-                    Codigo_txt.Text = cardalcomands.ValidandoCodigo(swModel, out err, false, swComands.sw_GetNameFile(swModel));//CAMPO CODIGO
-                    if(Codigo_txt.Text == "")
-                    {
-                        Codigo_txt.Text = swModel.GetTitle();
-                    }
-                    #region REVISÃO
-                    revisao_txt.Text = swComands.sw_GetCustomProperty(ppr.revisao, swModel, "", out revisao);//CAMPO REVISÃO
-                    if (revisao_txt.Text == "")
-                    {
-                        revisao_txt.Text = "A";
-                    }
+            if (swModel == null) return;
 
-                }
-
-                #endregion
-
-                #region DENOMINAÇÃO
-                material_txt.Text = swComands.sw_GetCustomProperty(ppr.material, swModel, "", out material);
-                swComands.sw_GetCustomProperty(ppr.denominacao, swModel, "", out denominacao);//obtem valor da propriedade
-                textDenominacao_txt.Text = denominacao;//escreve o valor da propriedade no campo denominacao
-                if (!Comercial)
-                {
-                    Denominacao_txt.Text = Codigo_txt.Text + revisao_txt.Text + " " + cardalcomands.validandoDenominacao(swModel, textDenominacao_txt.Text);
-                }
-                else
-                {
-                    Denominacao_txt.Text = cardalcomands.validandoDenominacao(swModel, textDenominacao_txt.Text);
-                }
-                #endregion
-
-                projetista_cb.Text = swComands.sw_GetCustomProperty(ppr.projetista, swModel, "", out strVar);
-                projetistaData_txt.Text = swComands.sw_GetCustomProperty(ppr.projetistaData, swModel, "", out strVar);
-
-                desenhista_cb.Text = swComands.sw_GetCustomProperty(ppr.desenhista, swModel, "", out strVar);
-                desenhistaData_txt.Text = swComands.sw_GetCustomProperty(ppr.desenhistaData, swModel, "", out strVar);
-
-                revisor_cb.Text = swComands.sw_GetCustomProperty(ppr.revisor, swModel, "", out strVar);
-                revisorData_txt.Text = swComands.sw_GetCustomProperty(ppr.revisorData, swModel, "", out strVar);
-
-                tipo_cb.Text = swComands.sw_GetCustomProperty(ppr.tipo, swModel, "", out strVar);
-                sub_cb.Text = swComands.sw_GetCustomProperty(ppr.subgrupo, swModel, "", out strVar);
-                unidade_cb.Text = swComands.sw_GetCustomProperty(ppr.unidade, swModel, "", out strVar);
-
-                pesobt_txt.Text = swComands.sw_GetCustomProperty(ppr.pbruto, swModel, "", out strVar);
-
-                #endregion
-            }
-
+            var data = _valueService.Obter(swModel, Comercial);
+            AplicarValores(data);
         }
+        //private void ObterValores()
+        //{
+        //    int err;
+        //    string denominacao;
+        //    string revisao;
+        //    string material;
+        //    string strVar;
+        //    if (swModel != null)
+        //    {
+        //        #region APLICANDO PROPRIEDADES
+        //        if (!Comercial)
+        //        {
+        //            Codigo_txt.Text = cardalcomands.ValidandoCodigo(swModel, out err, false, swComands.sw_GetNameFile(swModel));//CAMPO CODIGO
+        //            if (Codigo_txt.Text == "")
+        //            {
+        //                Codigo_txt.Text = swModel.GetTitle();
+        //            }
+        //            #region REVISÃO
+        //            revisao_txt.Text = swComands.sw_GetCustomProperty(ppr.revisao, swModel, "", out revisao);//CAMPO REVISÃO
+        //            if (revisao_txt.Text == "")
+        //            {
+        //                revisao_txt.Text = "A";
+        //            }
+
+        //        }
+
+        //        #endregion
+
+        //        #region DENOMINAÇÃO
+        //        material_txt.Text = swComands.sw_GetCustomProperty(ppr.material, swModel, "", out material);
+        //        swComands.sw_GetCustomProperty(ppr.denominacao, swModel, "", out denominacao);//obtem valor da propriedade
+        //        textDenominacao_txt.Text = denominacao;//escreve o valor da propriedade no campo denominacao
+        //        if (!Comercial)
+        //        {
+        //            Denominacao_txt.Text = Codigo_txt.Text + revisao_txt.Text + " " + cardalcomands.validandoDenominacao(swModel, textDenominacao_txt.Text);
+        //        }
+        //        else
+        //        {
+        //            Denominacao_txt.Text = cardalcomands.validandoDenominacao(swModel, textDenominacao_txt.Text);
+        //        }
+        //        #endregion
+
+        //        projetista_cb.Text = swComands.sw_GetCustomProperty(ppr.projetista, swModel, "", out strVar);
+        //        projetistaData_txt.Text = swComands.sw_GetCustomProperty(ppr.projetistaData, swModel, "", out strVar);
+
+        //        desenhista_cb.Text = swComands.sw_GetCustomProperty(ppr.desenhista, swModel, "", out strVar);
+        //        desenhistaData_txt.Text = swComands.sw_GetCustomProperty(ppr.desenhistaData, swModel, "", out strVar);
+
+        //        revisor_cb.Text = swComands.sw_GetCustomProperty(ppr.revisor, swModel, "", out strVar);
+        //        revisorData_txt.Text = swComands.sw_GetCustomProperty(ppr.revisorData, swModel, "", out strVar);
+
+        //        tipo_cb.Text = swComands.sw_GetCustomProperty(ppr.tipo, swModel, "", out strVar);
+        //        sub_cb.Text = swComands.sw_GetCustomProperty(ppr.subgrupo, swModel, "", out strVar);
+        //        unidade_cb.Text = swComands.sw_GetCustomProperty(ppr.unidade, swModel, "", out strVar);
+
+        //        pesobt_txt.Text = swComands.sw_GetCustomProperty(ppr.pbruto, swModel, "", out strVar);
+
+        //        #endregion
+        //    }
+
+        //}
         private void EstadoComercial(bool estado)
         {
             if (estado)
@@ -255,7 +280,7 @@ namespace DWM.TaskPaneHost
             }
             else
             {
-                cabecalho_pane.Visible=true;
+                cabecalho_pane.Visible = true;
                 CRM.Enabled = true;
             }
             Comercial = estado;
@@ -274,7 +299,7 @@ namespace DWM.TaskPaneHost
                 DefaultForms(swApp);
                 //swModel = swApp.ActiveDoc as ModelDoc2;
                 Verficacao(swApp, swModel);
-                if(swModel!= null)
+                if (swModel != null)
                 {
 
                     if ((int)swModel.GetType() == (int)swDocumentTypes_e.swDocPART)
@@ -298,7 +323,7 @@ namespace DWM.TaskPaneHost
                                     if (EstruturaOBJ[i, 0] != null)
                                     {
                                         object[] arrayInterno = (object[])EstruturaOBJ[i, 0];
-                                        if((string)arrayInterno[1] != "PESO ZERO")
+                                        if ((string)arrayInterno[1] != "PESO ZERO")
                                         {
                                             var item = new ListViewItem(new string[] { (string)arrayInterno[0], (string)arrayInterno[1], (string)arrayInterno[2], (string)arrayInterno[3], (string)arrayInterno[4], (string)arrayInterno[6] });
                                             var colors = ErrorList.GetLabelColors(Convert.ToInt32(arrayInterno[5]));
@@ -306,7 +331,7 @@ namespace DWM.TaskPaneHost
                                             item.ForeColor = colors.Item2;
 
                                             Estrutura_list.Items.Add(item);
-                                            
+
                                         }
                                     }
                                 }
@@ -353,7 +378,7 @@ namespace DWM.TaskPaneHost
                                                 object[] arrayInterno = (object[])EstruturaOBJ[i, 0];
                                                 if ((string)arrayInterno[1] != "PESO ZERO")
                                                 {
-                                                    var item = new ListViewItem(new string[] { (string)arrayInterno[0], (string)arrayInterno[1], (string)arrayInterno[2], (string)arrayInterno[3], (string)arrayInterno[4], (string)arrayInterno[6] },"",grupo);
+                                                    var item = new ListViewItem(new string[] { (string)arrayInterno[0], (string)arrayInterno[1], (string)arrayInterno[2], (string)arrayInterno[3], (string)arrayInterno[4], (string)arrayInterno[6] }, "", grupo);
                                                     var colors = ErrorList.GetLabelColors(Convert.ToInt32(arrayInterno[5]));
                                                     item.BackColor = colors.Item1;
                                                     item.ForeColor = colors.Item2;
@@ -387,177 +412,160 @@ namespace DWM.TaskPaneHost
         #region TextChange
         private void textDenominacao_txt_TextChanged(object sender, EventArgs e)
         {
-            if (swModel != null)
-            {
-                if (!Comercial)
-                {
-                    Denominacao_txt.Text = Codigo_txt.Text + revisao_txt.Text + " " + cardalcomands.validandoDenominacao(swModel, textDenominacao_txt.Text);
-                }
-                else
-                {
-                    Denominacao_txt.Text = cardalcomands.validandoDenominacao(swModel, textDenominacao_txt.Text);
-                }
-            }
+            if (swModel == null) return;
+
+            string textoProcessado =
+                DenominacaoProcessor.Processar(swModel, textDenominacao_txt.Text);
+
+            Denominacao_txt.Text = cardalcomands.GerarDenominacao(
+                Comercial,
+                Codigo_txt.Text,
+                revisao_txt.Text,
+                textoProcessado
+            );
         }
         private void Denominacao_txt_TextChanged(object sender, EventArgs e)
         {
-            int err = 0;
-            if (!Comercial)
-            {
-                if (Denominacao_txt.Text != material_txt.Text)
-                {
-                    err = 2;
-                }
-                if (Codigo_txt.Text == "" || revisao_txt.Text == "")
-                {
-                    err = 3;
-                }
-            }
-            else
-            {
-                if (Denominacao_txt.Text != material_txt.Text)
-                {
-                    err = 2;
-                }
-                
-            }
-            if (Denominacao_txt.Text == "" || material_txt.Text == "") { err = 2; }
+            int err = cardalcomands.ValidandoDenominacao(
+                Comercial,
+                Denominacao_txt.Text,
+                material_txt.Text,
+                Codigo_txt.Text,
+                revisao_txt.Text
+            );
 
             var colors = ErrorList.GetLabelColors(err);
             Denominacao_txt.BackColor = colors.Item1;
             Denominacao_txt.ForeColor = colors.Item2;
+
             errors.denominacao = err;
         }
 
+
         private void Codigo_txt_TextChanged(object sender, EventArgs e)
         {
-            int err=0;
-            if (swModel != null)
-            {
-                cardalcomands.ValidandoCodigo(swModel, out err, false, Codigo_txt.Text);
-                var colors = ErrorList.GetLabelColors(err);
-                Codigo_txt.BackColor = colors.Item1;
-                Codigo_txt.ForeColor = colors.Item2;
-            }
+            if (swModel == null) return;
+
+            var result = CodigoValidator.Validate(
+                swModel,
+                Codigo_txt.Text
+            );
+
+            if (Codigo_txt.Text != result.CodigoFinal)
+                Codigo_txt.Text = result.CodigoFinal;
+
+            var colors = ErrorVisual.GetColors(result.Error);
+            Codigo_txt.BackColor = colors.back;
+            Codigo_txt.ForeColor = colors.fore;
+
+            errors.codigo = (int)result.Error;
+
             textDenominacao_txt_TextChanged(sender, e);
-            errors.codigo = err;
         }
+
         private void revisao_txt_TextChanged(object sender, EventArgs e)
         {
-            int err= 0;
-            if (swModel != null)
-            {
-                cardalcomands.ValidandoRevisao(swModel, revisao_txt.Text,out err);
-                string varRev = banco.ValidarRev(Codigo_txt.Text, revisao_txt.Text);
-                if (varRev != revisao_txt.Text && varRev != null) { //MessageBox.Show("Revisão diferente do banco de dados");
-                                                                    err = 3; }
+            if (swModel == null) return;
 
-                var colors = ErrorList.GetLabelColors(err);
-                revisao_txt.BackColor = colors.Item1;
-                revisao_txt.ForeColor = colors.Item2;
-            }
-            textDenominacao_txt_TextChanged(sender, e);
-            errors.revisao = err;
+            var result = RevisaoValidator.Validate(
+                swModel,
+                revisao_txt.Text
+            );
+
+            if (revisao_txt.Text != result.RevisaoFinal)
+                revisao_txt.Text = result.RevisaoFinal;
+
+            var colors = ErrorVisual.GetColors(
+                (CodigoErrorType)result.Error
+            );
+
+            revisao_txt.BackColor = colors.back;
+            revisao_txt.ForeColor = colors.fore;
+
+            errors.revisao = (int)result.Error;
         }
+
         #region PROJETISTA/DESENHISTA/APROVADOR
         private void projetista_cb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string strVar;
-            int err = 0;
-            if (swModel != null)
-            {
-                if (projetista_cb.Text != swComands.sw_GetCustomProperty(ppr.projetista, swModel, "", out strVar))
-                {
-                    err = 1;
-                }
-            }
-            var colors = ErrorList.GetLabelColors(err);
-            projetista_cb.BackColor = colors.Item1;
-            projetista_cb.ForeColor = colors.Item2;
-            errors.projetista = err;
-        }
+            if (swModel == null) return;
 
+            var erro = FormFieldValidator.ValidarNome(
+                swModel,
+                projetista_cb.Text,
+                ppr.projetista,
+                swComands);
+
+            VisualHelper.Aplicar(projetista_cb, erro);
+            errors.projetista = (int)erro;
+        }
         private void desenhista_cb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string strVar;
-            int err = 0;
-            if (swModel != null)
-            {
-                if (desenhista_cb.Text != swComands.sw_GetCustomProperty(ppr.desenhista, swModel, "", out strVar))
-                {
-                    err = 1;
-                }
-            }
-            var colors = ErrorList.GetLabelColors(err);
-            desenhista_cb.BackColor = colors.Item1;
-            desenhista_cb.ForeColor = colors.Item2;
-            errors.desenhista = err;
-        }
+            if (swModel == null) return;
 
+            var erro = FormFieldValidator.ValidarNome(
+                swModel,
+                desenhista_cb.Text,
+                ppr.desenhista,
+                swComands);
+
+            VisualHelper.Aplicar(desenhista_cb, erro);
+            errors.desenhista = (int)erro;
+        }
         private void revisor_cb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string strVar;
-            int err = 0;
-            if (swModel != null)
-            {
-                if (revisor_cb.Text != swComands.sw_GetCustomProperty(ppr.revisor, swModel, "", out strVar))
-                {
-                    err = 1;
-                }
-            }
-            var colors = ErrorList.GetLabelColors(err);
-            revisor_cb.BackColor = colors.Item1;
-            revisor_cb.ForeColor = colors.Item2;
-            errors .revisor = err;
+            if (swModel == null) return;
+
+            var erro = FormFieldValidator.ValidarNome(
+                swModel,
+                revisor_cb.Text,
+                ppr.revisor,
+                swComands);
+
+            VisualHelper.Aplicar(revisor_cb, erro);
+            errors.revisor = (int)erro;
         }
+
         #endregion
 
         #region DATA PROJETISTA/DESENHISTA/APROVADOR
         private void projetistaData_txt_TextChanged(object sender, EventArgs e)
         {
-            string strVar;
-            int err = 0;
-            if (swModel != null)
-            {
-                if (projetistaData_txt.Text != swComands.sw_GetCustomProperty(ppr.projetistaData, swModel, "", out strVar))
-                {
-                    err = 1;
-                }
-            }
-            var colors = ErrorList.GetLabelColors(err);
-            projetistaData_txt.BackColor = colors.Item1;
-            projetistaData_txt.ForeColor = colors.Item2;
+            if (swModel == null) return;
+
+            var erro = FormFieldValidator.ValidarData(
+                swModel,
+                projetistaData_txt.Text,
+                ppr.projetistaData,
+                swComands);
+
+            VisualHelper.Aplicar(projetistaData_txt, erro);
         }
         private void desenhistaData_txt_TextChanged(object sender, EventArgs e)
         {
-            string strVar;
-            int err = 0;
-            if (swModel != null)
-            {
-                if (desenhistaData_txt.Text != swComands.sw_GetCustomProperty(ppr.desenhistaData, swModel, "", out strVar))
-                {
-                    err = 1;
-                }
-            }
-            var colors = ErrorList.GetLabelColors(err);
-            desenhistaData_txt.BackColor = colors.Item1;
-            desenhistaData_txt.ForeColor = colors.Item2;
+            if (swModel == null) return;
+
+            var erro = FormFieldValidator.ValidarData(
+                swModel,
+                desenhistaData_txt.Text,
+                ppr.desenhistaData,
+                swComands);
+
+            VisualHelper.Aplicar(desenhistaData_txt, erro);
         }
         private void revisorData_txt_TextChanged(object sender, EventArgs e)
         {
-            string strVar;
-            int err = 0;
-            if (swModel != null)
-            {
-                if (revisorData_txt.Text != swComands.sw_GetCustomProperty(ppr.revisorData, swModel, "", out strVar))
-                {
-                    err = 1;
-                }
-            }
-            var colors = ErrorList.GetLabelColors(err);
-            revisorData_txt.BackColor = colors.Item1;
-            revisorData_txt.ForeColor = colors.Item2;
+            if (swModel == null) return;
+
+            var erro = FormFieldValidator.ValidarData(
+                swModel,
+                revisorData_txt.Text,
+                ppr.desenhistaData,
+                swComands);
+
+            VisualHelper.Aplicar(revisorData_txt, erro);
         }
+
         #endregion
         #endregion
 
@@ -565,7 +573,7 @@ namespace DWM.TaskPaneHost
         {
             try
             {
-                if (Estrutura_list.SelectedItems.Count > 0 && EstruturaOBJ !=null)
+                if (Estrutura_list.SelectedItems.Count > 0 && EstruturaOBJ != null)
                 {
                     string[] listvalue = new string[5];
                     {
@@ -636,28 +644,28 @@ namespace DWM.TaskPaneHost
 
         private void ApplyProjetista_bt_Click(object sender, EventArgs e)
         {
-            string Date = DateTime.Now.ToString("dd/MM/yyyy");
+            string Date = DateTime.Now.ToString("dd-MM-yyyy");
             projetista_cb.Text = Settings.Default.User_Projetista;
             projetistaData_txt.Text = Date;
         }
 
         private void ApplyDesenhista_bt_Click(object sender, EventArgs e)
         {
-            string Date = DateTime.Now.ToString("dd/MM/yyyy");
+            string Date = DateTime.Now.ToString("dd-MM-yyyy");
             desenhista_cb.Text = Settings.Default.User_Projetista;
             desenhistaData_txt.Text = Date;
         }
 
         private void ApplyAprovador_bt_Click(object sender, EventArgs e)
         {
-            string Date = DateTime.Now.ToString("dd/MM/yyyy");
+            string Date = DateTime.Now.ToString("dd-MM-yyyy");
             revisor_cb.Text = "cleber.marangoni";
             revisorData_txt.Text = Date;
         }
 
         private void salvar_bt_Click(object sender, EventArgs e)
         {
-            if(swModel != null)
+            if (swModel != null)
             {
                 CustomPropertyManager swCustProp;
                 string[] confg = swComands.sw_GetConfigurations(swModel);
@@ -699,7 +707,7 @@ namespace DWM.TaskPaneHost
                         swComands.SW_AddProperty(swCustProp, ppr.revisao, revisao_txt.Text.Trim());
                         swComands.SW_AddProperty(swCustProp, ppr.denominacao, textDenominacao_txt.Text.Trim());
                         swComands.SW_AddProperty(swCustProp, ppr.descricao, textDenominacao_txt.Text.Trim());
-                        swComands.SW_AddProperty(swCustProp, ppr.comprimento, Codigo_txt.Text+ revisao_txt.Text.Trim());
+                        swComands.SW_AddProperty(swCustProp, ppr.comprimento, Codigo_txt.Text + revisao_txt.Text.Trim());
                         swComands.SW_AddProperty(swCustProp, ppr.material, Denominacao_txt.Text.Trim());
                         swComands.SW_AddProperty(swCustProp, ppr.projetista, projetista_cb.Text.Trim());
                         swComands.SW_AddProperty(swCustProp, ppr.projetistaData, projetistaData_txt.Text.Trim());
@@ -717,7 +725,7 @@ namespace DWM.TaskPaneHost
 
         private void CRM_Control1_Click(object sender, EventArgs e)
         {
-            if(swModel != null)
+            if (swModel != null)
             {
                 if (Comercial == false)
                 {
@@ -768,29 +776,29 @@ namespace DWM.TaskPaneHost
         {
             if (Estrutura_list.Items.Count > 0)
             {
-                double pbList=0;
-                for (int i = 0;Estrutura_list.Items.Count > i; i++)
+                double pbList = 0;
+                for (int i = 0; Estrutura_list.Items.Count > i; i++)
                 {
                     if (Estrutura_list.Items[i].SubItems[4].Text != string.Empty && Estrutura_list.Items[i].SubItems[0].Text != string.Empty)
                     {
                         string var = @"^\d+(\,\d+)?$";
-                        string pb = Estrutura_list.Items[i].SubItems[4].Text.Replace(".",",");
+                        string pb = Estrutura_list.Items[i].SubItems[4].Text.Replace(".", ",");
                         string qtd = Estrutura_list.Items[i].SubItems[0].Text.Replace(".", ",");
                         if (Regex.IsMatch(pb, var) && Regex.IsMatch(qtd, var))
                         {
                             pbList = pbList + (double.Parse(pb) * double.Parse(qtd));
                         }
-                       
+
                     }
                 }
-                
-                pesobt_txt.Text = pbList.ToString("0.00").Replace(",",".");
+
+                pesobt_txt.Text = pbList.ToString("0.00").Replace(",", ".");
             }
         }
 
         private void pesobt_txt_TextChanged(object sender, EventArgs e)
         {
-            if(swModel!=null)
+            if (swModel != null)
             {
                 int err = 0;
                 if (!Comercial)
@@ -827,7 +835,7 @@ namespace DWM.TaskPaneHost
         {
             if (formEstrutura == null)
             {
-                formEstrutura = new Estrutura_main( this,swModel,swApp);
+                formEstrutura = new Estrutura_main(this, swModel, swApp);
                 formEstrutura.Show();
                 Form1 md = new Form1();
                 md.Show();
@@ -845,7 +853,7 @@ public static class FormUtils
     // Verifica se uma instância específica de um formulário está aberta
     public static bool IsFormOpen(Type formType, out object formVar)
     {
-        formVar = null; 
+        formVar = null;
         // Verifica todas as janelas abertas na aplicação
         foreach (Form form in Application.OpenForms)
         {
