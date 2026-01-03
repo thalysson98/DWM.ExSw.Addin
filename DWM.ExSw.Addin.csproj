@@ -107,8 +107,12 @@
     <Compile Include="Base\ClientComands.cs" />
     <Compile Include="Base\DataMaterial.cs" />
     <Compile Include="Base\stringcorrection.cs" />
+    <Compile Include="Base\SwDimensionReader.cs" />
     <Compile Include="Base\swSpecialComands.cs" />
     <Compile Include="Base\ValidateProperty.cs" />
+    <Compile Include="Domain\Validators\Common\ValidationErrorType.cs" />
+    <Compile Include="Domain\Validators\Common\ValidationResult.cs" />
+    <Compile Include="Domain\Validators\ValidationResult.cs" />
     <Compile Include="Core\Vortex_In.cs" />
     <Compile Include="Core\SwDocHandler.cs" />
     <Compile Include="Core\ListItemComparer.cs" />
@@ -125,17 +129,17 @@
       <DependentUpon>sql_config.settings</DependentUpon>
     </Compile>
     <Compile Include="DataSRV\SQLCommands.cs" />
-    <Compile Include="DTO\CardallFormData.cs" />
-    <Compile Include="Estrutura_main.cs">
+    <Compile Include="Domain\DTOs\CardallFormData.cs" />
+    <Compile Include="UI\Forms\Estrutura_main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Estrutura_main.Designer.cs">
+    <Compile Include="UI\Forms\Estrutura_main.Designer.cs">
       <DependentUpon>Estrutura_main.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="UI\Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
+    <Compile Include="UI\Forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="IAddin.cs" />
@@ -144,19 +148,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\CardallValueService.cs" />
-    <Compile Include="setup\dimenssoes.cs">
+    <Compile Include="Domain\Services\AtualizarEstruturaService.cs" />
+    <Compile Include="Domain\Services\CardallValueService.cs" />
+    <Compile Include="Application\SaveService.cs" />
+    <Compile Include="Domain\Validators\ValidationService.cs" />
+    <Compile Include="UI\Forms\dimenssoes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="setup\dimenssoes.Designer.cs">
+    <Compile Include="UI\Forms\dimenssoes.Designer.cs">
       <DependentUpon>dimenssoes.cs</DependentUpon>
     </Compile>
-    <Compile Include="setup\info\errorList.cs" />
-    <Compile Include="setup\info\Ppr.cs" />
-    <Compile Include="setup\mainconfig.cs">
+    <Compile Include="UI\setup\info\errorList.cs" />
+    <Compile Include="UI\setup\info\Ppr.cs" />
+    <Compile Include="UI\Forms\mainconfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="setup\mainconfig.Designer.cs">
+    <Compile Include="UI\Forms\mainconfig.Designer.cs">
       <DependentUpon>mainconfig.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings1.Designer.cs">
@@ -164,10 +171,10 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="setup\materiaisData.cs">
+    <Compile Include="UI\Forms\materiaisData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="setup\materiaisData.Designer.cs">
+    <Compile Include="UI\Forms\materiaisData.Designer.cs">
       <DependentUpon>materiaisData.cs</DependentUpon>
     </Compile>
     <Compile Include="TaskpaneIntegration.cs" />
@@ -180,36 +187,36 @@
     </Compile>
     <Compile Include="UI\ErrorVisual.cs" />
     <Compile Include="UI\VisualHelper.cs" />
-    <Compile Include="Validation\Codigo\CodigoErrorType.cs" />
-    <Compile Include="Validation\Codigo\CodigoValidationResult.cs" />
-    <Compile Include="Validation\Codigo\CodigoValidator.cs" />
-    <Compile Include="Validation\Denominacao\DenominacaoErrorType.cs" />
+    <Compile Include="Domain\Validators\Codigo\CodigoErrorType.cs" />
+    <Compile Include="Domain\Validators\Codigo\CodigoValidationResult.cs" />
+    <Compile Include="Domain\Validators\Codigo\CodigoValidator.cs" />
+    <Compile Include="Domain\Validators\Denominacao\DenominacaoErrorType.cs" />
     <Compile Include="Base\DenominacaoProcessor.cs" />
-    <Compile Include="Validation\Denominacao\DenominacaoValidationResult.cs" />
-    <Compile Include="Validation\Denominacao\DenominacaoValidator.cs" />
-    <Compile Include="Validation\FormFieldValidator.cs" />
-    <Compile Include="Validation\Revisao\RevisaoErrorType.cs" />
-    <Compile Include="Validation\Revisao\RevisaoValidationResult.cs" />
-    <Compile Include="Validation\Revisao\RevisaoValidator.cs" />
+    <Compile Include="Domain\Validators\Denominacao\DenominacaoValidationResult.cs" />
+    <Compile Include="Domain\Validators\Denominacao\DenominacaoValidator.cs" />
+    <Compile Include="Domain\Validators\FormFieldValidator.cs" />
+    <Compile Include="Domain\Validators\Revisao\RevisaoErrorType.cs" />
+    <Compile Include="Domain\Validators\Revisao\RevisaoValidationResult.cs" />
+    <Compile Include="Domain\Validators\Revisao\RevisaoValidator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Estrutura_main.resx">
+    <EmbeddedResource Include="UI\Forms\Estrutura_main.resx">
       <DependentUpon>Estrutura_main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="UI\Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="setup\dimenssoes.resx">
+    <EmbeddedResource Include="UI\Forms\dimenssoes.resx">
       <DependentUpon>dimenssoes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="setup\mainconfig.resx">
+    <EmbeddedResource Include="UI\Forms\mainconfig.resx">
       <DependentUpon>mainconfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="setup\materiaisData.resx">
+    <EmbeddedResource Include="UI\Forms\materiaisData.resx">
       <DependentUpon>materiaisData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TaskpaneHostUI.resx">
@@ -242,6 +249,9 @@
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UI\Controls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

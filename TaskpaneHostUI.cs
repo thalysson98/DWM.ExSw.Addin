@@ -9,12 +9,12 @@ using DWM.ExSw.Addin.setup.info;
 using DWM.ExSw.Addin.UI;
 using DWM.ExSw.Addin.Validation;
 using DWM.ExSw.Addin.Validation.Codigo;
+using DWM.ExSw.Addin.Validation.Denominacao;
 using DWM.ExSw.Addin.Validation.Revisao;
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -45,6 +45,8 @@ namespace DWM.TaskPaneHost
         ErrorList errors;
         public cardallData banco;
         private CardallValueService _valueService;
+        private bool _isLoadingForm = false;
+
 
         #endregion
         public TaskpaneHostUI()
@@ -61,7 +63,7 @@ namespace DWM.TaskPaneHost
                 XML_MATERIAIS = materiais_bc.lista_material(materiais_bc);
 
             }
-            
+
             vortexcomands = new Vortex_In();
             cardalcomands = new ClientComandsCardall();
             swComands = new swSpecialComands();
@@ -125,32 +127,27 @@ namespace DWM.TaskPaneHost
         }
         public void DefaultForms(SldWorks swApp)
         {
-            //swModel = null;
+            _isLoadingForm = true; // 🔇 silencia eventos
+
             var colors = ErrorList.GetLabelColors(0);
             Comercial_check.Checked = false;
-            #region Labels text
-            Codigo_txt.Text = "";
-            Denominacao_txt.Text = "";
-            textDenominacao_txt.Text = "";
-            material_txt.Text = "";
-            revisao_txt.Text = "";
+
+            Codigo_txt.Clear();
+            Denominacao_txt.Clear();
+            textDenominacao_txt.Clear();
+            material_txt.Clear();
+            revisao_txt.Clear();
             projetista_cb.Text = "";
             desenhista_cb.Text = "";
             revisor_cb.Text = "";
-            projetistaData_txt.Text = "";
-            desenhistaData_txt.Text = "";
-            revisorData_txt.Text = "";
+            projetistaData_txt.Clear();
+            desenhistaData_txt.Clear();
+            revisorData_txt.Clear();
             tipo_cb.Text = "";
             sub_cb.Text = "";
             unidade_cb.Text = "";
-            pesobt_txt.Text = "";
+            pesobt_txt.Clear();
 
-            #endregion
-
-            //ListaDeCorte_check.Checked = false;
-
-
-            #region Colors Labels
             Codigo_txt.BackColor = colors.Item1;
             Codigo_txt.ForeColor = colors.Item2;
 
@@ -174,19 +171,50 @@ namespace DWM.TaskPaneHost
             revisor_cb.ForeColor = colors.Item2;
             revisorData_txt.BackColor = colors.Item1;
             revisorData_txt.ForeColor = colors.Item2;
-            #endregion
 
             Estrutura_list.Items.Clear();
             Estrutura_list.Groups.Clear();
+
+            _isLoadingForm = false; // 🔊 libera eventos
         }
+
+        private CardallFormData ObterFormData()
+        {
+            return new CardallFormData
+            {
+                Comercial = Comercial,
+
+                Codigo = Codigo_txt.Text.Trim(),
+                Revisao = revisao_txt.Text.Trim(),
+                DenominacaoFinal = textDenominacao_txt.Text.Trim(),
+                DenominacaoOriginal = textDenominacao_txt.Text.Trim(),
+                Material = Denominacao_txt.Text.Trim(),
+
+                Projetista = projetista_cb.Text.Trim(),
+                ProjetistaData = projetistaData_txt.Text.Trim(),
+
+                Desenhista = desenhista_cb.Text.Trim(),
+                DesenhistaData = desenhistaData_txt.Text.Trim(),
+
+                Revisor = revisor_cb.Text.Trim(),
+                RevisorData = revisorData_txt.Text.Trim(),
+
+                Tipo = tipo_cb.Text.Trim(),
+                SubGrupo = sub_cb.Text.Trim(),
+                Unidade = unidade_cb.Text.Trim(),
+
+                PesoBruto = pesobt_txt.Text.Trim()
+            };
+        }
+
         private void AplicarValores(CardallFormData d)
         {
             Codigo_txt.Text = d.Codigo;
             revisao_txt.Text = d.Revisao;
 
-            textDenominacao_txt.Text = d.DenominacaoOriginal;
-            Denominacao_txt.Text = d.DenominacaoFinal;
             material_txt.Text = d.Material;
+            textDenominacao_txt.Text = d.DenominacaoOriginal;
+            Denominacao_txt.Text = d.DenominacaoFinal;  
 
             projetista_cb.Text = d.Projetista;
             projetistaData_txt.Text = d.ProjetistaData;
@@ -210,67 +238,6 @@ namespace DWM.TaskPaneHost
             var data = _valueService.Obter(swModel, Comercial);
             AplicarValores(data);
         }
-        //private void ObterValores()
-        //{
-        //    int err;
-        //    string denominacao;
-        //    string revisao;
-        //    string material;
-        //    string strVar;
-        //    if (swModel != null)
-        //    {
-        //        #region APLICANDO PROPRIEDADES
-        //        if (!Comercial)
-        //        {
-        //            Codigo_txt.Text = cardalcomands.ValidandoCodigo(swModel, out err, false, swComands.sw_GetNameFile(swModel));//CAMPO CODIGO
-        //            if (Codigo_txt.Text == "")
-        //            {
-        //                Codigo_txt.Text = swModel.GetTitle();
-        //            }
-        //            #region REVISÃO
-        //            revisao_txt.Text = swComands.sw_GetCustomProperty(ppr.revisao, swModel, "", out revisao);//CAMPO REVISÃO
-        //            if (revisao_txt.Text == "")
-        //            {
-        //                revisao_txt.Text = "A";
-        //            }
-
-        //        }
-
-        //        #endregion
-
-        //        #region DENOMINAÇÃO
-        //        material_txt.Text = swComands.sw_GetCustomProperty(ppr.material, swModel, "", out material);
-        //        swComands.sw_GetCustomProperty(ppr.denominacao, swModel, "", out denominacao);//obtem valor da propriedade
-        //        textDenominacao_txt.Text = denominacao;//escreve o valor da propriedade no campo denominacao
-        //        if (!Comercial)
-        //        {
-        //            Denominacao_txt.Text = Codigo_txt.Text + revisao_txt.Text + " " + cardalcomands.validandoDenominacao(swModel, textDenominacao_txt.Text);
-        //        }
-        //        else
-        //        {
-        //            Denominacao_txt.Text = cardalcomands.validandoDenominacao(swModel, textDenominacao_txt.Text);
-        //        }
-        //        #endregion
-
-        //        projetista_cb.Text = swComands.sw_GetCustomProperty(ppr.projetista, swModel, "", out strVar);
-        //        projetistaData_txt.Text = swComands.sw_GetCustomProperty(ppr.projetistaData, swModel, "", out strVar);
-
-        //        desenhista_cb.Text = swComands.sw_GetCustomProperty(ppr.desenhista, swModel, "", out strVar);
-        //        desenhistaData_txt.Text = swComands.sw_GetCustomProperty(ppr.desenhistaData, swModel, "", out strVar);
-
-        //        revisor_cb.Text = swComands.sw_GetCustomProperty(ppr.revisor, swModel, "", out strVar);
-        //        revisorData_txt.Text = swComands.sw_GetCustomProperty(ppr.revisorData, swModel, "", out strVar);
-
-        //        tipo_cb.Text = swComands.sw_GetCustomProperty(ppr.tipo, swModel, "", out strVar);
-        //        sub_cb.Text = swComands.sw_GetCustomProperty(ppr.subgrupo, swModel, "", out strVar);
-        //        unidade_cb.Text = swComands.sw_GetCustomProperty(ppr.unidade, swModel, "", out strVar);
-
-        //        pesobt_txt.Text = swComands.sw_GetCustomProperty(ppr.pbruto, swModel, "", out strVar);
-
-        //        #endregion
-        //    }
-
-        //}
         private void EstadoComercial(bool estado)
         {
             if (estado)
@@ -293,131 +260,92 @@ namespace DWM.TaskPaneHost
         }
         private void Atualizar_bt_Click(object sender, EventArgs e)
         {
-            //swModel = null;
-            if (swApp != null)
+            if (swApp == null)
+                return;
+
+            DefaultForms(swApp);
+            Verficacao(swApp, swModel);
+
+            if (swModel == null)
+                return;
+
+            ObterValores();
+            Estrutura_list.Items.Clear();
+            Estrutura_list.Groups.Clear();
+
+            var service = new AtualizarEstruturaService(cardalcomands, swComands);
+
+            if ((int)swModel.GetType() == (int)swDocumentTypes_e.swDocPART)
             {
-                DefaultForms(swApp);
-                //swModel = swApp.ActiveDoc as ModelDoc2;
-                Verficacao(swApp, swModel);
-                if (swModel != null)
+                var itens = service.AtualizarPart(
+                    swModel,
+                    Comercial,
+                    ListaDeCorte_check.Checked);
+
+                ListaDeCorte_check.Checked = false;
+
+                foreach (var item in itens)
                 {
-
-                    if ((int)swModel.GetType() == (int)swDocumentTypes_e.swDocPART)
+                    var listItem = new ListViewItem(new[]
                     {
-                        ObterValores();
-                        if (!Comercial)
-                        {
-                            #region Validação Estrutura
-                            if (ListaDeCorte_check.Checked == true)
-                            {
-                                swComands.SW_DeleteCutList(swModel);
-                                swComands.SW_UpdateCutlist(swModel);
-                                ListaDeCorte_check.Checked = false;
-                            }
-                            EstruturaOBJ = null;
-                            EstruturaOBJ = cardalcomands.GetEstrutura(swModel);
-                            if (EstruturaOBJ != null)
-                            {
-                                for (int i = 0; i < EstruturaOBJ.GetLength(0); i++)
-                                {
-                                    if (EstruturaOBJ[i, 0] != null)
-                                    {
-                                        object[] arrayInterno = (object[])EstruturaOBJ[i, 0];
-                                        if ((string)arrayInterno[1] != "PESO ZERO")
-                                        {
-                                            var item = new ListViewItem(new string[] { (string)arrayInterno[0], (string)arrayInterno[1], (string)arrayInterno[2], (string)arrayInterno[3], (string)arrayInterno[4], (string)arrayInterno[6] });
-                                            var colors = ErrorList.GetLabelColors(Convert.ToInt32(arrayInterno[5]));
-                                            item.BackColor = colors.Item1;
-                                            item.ForeColor = colors.Item2;
+                item.Col0,
+                item.Col1,
+                item.Col2,
+                item.Col3,
+                item.Col4,
+                item.Col6
+            });
 
-                                            Estrutura_list.Items.Add(item);
+                    var colors = ErrorList.GetLabelColors(item.Status);
+                    listItem.BackColor = colors.Item1;
+                    listItem.ForeColor = colors.Item2;
 
-                                        }
-                                    }
-                                }
-                                calcPB_bt_Click(sender, e);
-                            }
-                            #endregion
-                        }
-                        else
-                        {
-                            Estrutura_list.Items.Clear();
-                        }
-                    }
-                    else if ((int)swModel.GetType() == (int)swDocumentTypes_e.swDocASSEMBLY)
-                    {
-                        ObterValores();
-                        object[] varComp;
-
-                        varComp = swComands.GetCompModels((AssemblyDoc)swModel);
-                        if (varComp != null)
-                        {
-                            int I = 0;
-                            for (I = 0; I < varComp.Length; I++)
-                            {
-                                Component2 swComp = default(Component2);
-                                swComp = (Component2)varComp[I];
-                                if (!((swComp == null)))
-                                {
-                                    ModelDoc2 swCompModel;
-                                    swCompModel = (ModelDoc2)swComp.GetModelDoc2();
-                                    //listView1.Groups.Add(swComp.Name2, swComp.Name2);
-
-                                    ListViewGroup grupo = new ListViewGroup(swCompModel.GetTitle());
-                                    //item.Group = grupo;
-                                    Estrutura_list.Groups.Add(grupo);
-
-                                    //EstruturaOBJ = null;
-                                    EstruturaOBJ = cardalcomands.GetEstrutura(swCompModel);
-                                    if (EstruturaOBJ != null)
-                                    {
-                                        for (int i = 0; i < EstruturaOBJ.GetLength(0); i++)
-                                        {
-                                            if (EstruturaOBJ[i, 0] != null)
-                                            {
-                                                object[] arrayInterno = (object[])EstruturaOBJ[i, 0];
-                                                if ((string)arrayInterno[1] != "PESO ZERO")
-                                                {
-                                                    var item = new ListViewItem(new string[] { (string)arrayInterno[0], (string)arrayInterno[1], (string)arrayInterno[2], (string)arrayInterno[3], (string)arrayInterno[4], (string)arrayInterno[6] }, "", grupo);
-                                                    var colors = ErrorList.GetLabelColors(Convert.ToInt32(arrayInterno[5]));
-                                                    item.BackColor = colors.Item1;
-                                                    item.ForeColor = colors.Item2;
-
-                                                    Estrutura_list.Items.Add(item);
-
-                                                }
-                                            }
-                                        }
-                                        //calcPB_bt_Click(sender, e);
-                                    }
-
-                                }
-
-                                Debug.Print("");
-                            }
-                        }
-
-
-                    }
-                    else if ((int)swModel.GetType() == (int)swDocumentTypes_e.swDocDRAWING)
-                    {
-                        DefaultForms(swApp);
-                    }
-
+                    Estrutura_list.Items.Add(listItem);
                 }
 
+                calcPB_bt_Click(sender, e);
+            }
+            else if ((int)swModel.GetType() == (int)swDocumentTypes_e.swDocASSEMBLY)
+            {
+                var grupos = service.AtualizarAssembly((AssemblyDoc)swModel);
+
+                foreach (var grupo in grupos)
+                {
+                    var lvGrupo = new ListViewGroup(grupo.NomeGrupo);
+                    Estrutura_list.Groups.Add(lvGrupo);
+
+                    foreach (var item in grupo.Itens)
+                    {
+                        var listItem = new ListViewItem(new[]
+                        {
+                    item.Col0,
+                    item.Col1,
+                    item.Col2,
+                    item.Col3,
+                    item.Col4,
+                    item.Col6
+                }, lvGrupo);
+
+                        var colors = ErrorList.GetLabelColors(item.Status);
+                        listItem.BackColor = colors.Item1;
+                        listItem.ForeColor = colors.Item2;
+
+                        Estrutura_list.Items.Add(listItem);
+                    }
+                }
             }
         }
 
         #region TextChange
         private void textDenominacao_txt_TextChanged(object sender, EventArgs e)
         {
+            if (_isLoadingForm) return;
             if (swModel == null) return;
-
+            
             string textoProcessado =
                 DenominacaoProcessor.Processar(swModel, textDenominacao_txt.Text);
 
-            Denominacao_txt.Text = cardalcomands.GerarDenominacao(
+            Denominacao_txt.Text = DenominacaoProcessor.GerarDenominacao(
                 Comercial,
                 Codigo_txt.Text,
                 revisao_txt.Text,
@@ -426,7 +354,7 @@ namespace DWM.TaskPaneHost
         }
         private void Denominacao_txt_TextChanged(object sender, EventArgs e)
         {
-            int err = cardalcomands.ValidandoDenominacao(
+            var result = DenominacaoValidator.Validate(
                 Comercial,
                 Denominacao_txt.Text,
                 material_txt.Text,
@@ -434,18 +362,19 @@ namespace DWM.TaskPaneHost
                 revisao_txt.Text
             );
 
-            var colors = ErrorList.GetLabelColors(err);
-            Denominacao_txt.BackColor = colors.Item1;
-            Denominacao_txt.ForeColor = colors.Item2;
+            var colors = ErrorVisual.GetColors((CodigoErrorType)result.Error);
+            Denominacao_txt.BackColor = colors.back;
+            Denominacao_txt.ForeColor = colors.fore;
 
-            errors.denominacao = err;
+            errors.denominacao = (int)result.Error;
         }
 
 
         private void Codigo_txt_TextChanged(object sender, EventArgs e)
         {
+            if (_isLoadingForm) return;
             if (swModel == null) return;
-
+            
             var result = CodigoValidator.Validate(
                 swModel,
                 Codigo_txt.Text
@@ -465,8 +394,9 @@ namespace DWM.TaskPaneHost
 
         private void revisao_txt_TextChanged(object sender, EventArgs e)
         {
+            if (_isLoadingForm) return;
             if (swModel == null) return;
-
+            
             var result = RevisaoValidator.Validate(
                 swModel,
                 revisao_txt.Text
@@ -483,6 +413,7 @@ namespace DWM.TaskPaneHost
             revisao_txt.ForeColor = colors.fore;
 
             errors.revisao = (int)result.Error;
+            textDenominacao_txt_TextChanged(sender, e);
         }
 
         #region PROJETISTA/DESENHISTA/APROVADOR
@@ -662,65 +593,17 @@ namespace DWM.TaskPaneHost
             revisor_cb.Text = "cleber.marangoni";
             revisorData_txt.Text = Date;
         }
-
         private void salvar_bt_Click(object sender, EventArgs e)
         {
-            if (swModel != null)
-            {
-                CustomPropertyManager swCustProp;
-                string[] confg = swComands.sw_GetConfigurations(swModel);
-                Array.Resize(ref confg, confg.Length + 1);
-                confg[confg.Length - 1] = "";
-                if (errors.validaErros(1))
-                {
-                    for (int i = 0; i < confg.Length; i++)
-                    {
-                        swCustProp = swModel.Extension.CustomPropertyManager[confg[i]];
-                        #region DELETAR PROPRIEDADES
-                        swComands.sw_DeleteProperty(swCustProp, ppr.codigo);
-                        swComands.sw_DeleteProperty(swCustProp, ppr.revisao);
-                        swComands.sw_DeleteProperty(swCustProp, ppr.denominacao);
-                        swComands.sw_DeleteProperty(swCustProp, ppr.descricao);
-                        swComands.sw_DeleteProperty(swCustProp, ppr.comprimento);
-                        swComands.sw_DeleteProperty(swCustProp, ppr.material);
-                        swComands.sw_DeleteProperty(swCustProp, ppr.projetista);
-                        swComands.sw_DeleteProperty(swCustProp, ppr.projetistaData);
-                        swComands.sw_DeleteProperty(swCustProp, ppr.desenhista);
-                        swComands.sw_DeleteProperty(swCustProp, ppr.desenhistaData);
-                        swComands.sw_DeleteProperty(swCustProp, ppr.revisor);
-                        swComands.sw_DeleteProperty(swCustProp, ppr.revisorData);
-                        swComands.sw_DeleteProperty(swCustProp, ppr.pbruto);
-                        swComands.sw_DeleteProperty(swCustProp, "Soldagem");
-                        #endregion
+            if (swModel == null) return;
+            if (!errors.validaErros(1)) return;
 
-                        #region ADICIONAR PROPRIEDADES
-                        if (Comercial == true)
-                        {
-                            swComands.SW_AddProperty(swCustProp, "Soldagem", "Sim");
-                        }
-                        else
-                        {
-                            swComands.SW_AddProperty(swCustProp, "Soldagem", "Não");
-                        }
+            var data = ObterFormData();
 
-                        swComands.SW_AddProperty(swCustProp, ppr.codigo, Codigo_txt.Text.Trim());
-                        swComands.SW_AddProperty(swCustProp, ppr.revisao, revisao_txt.Text.Trim());
-                        swComands.SW_AddProperty(swCustProp, ppr.denominacao, textDenominacao_txt.Text.Trim());
-                        swComands.SW_AddProperty(swCustProp, ppr.descricao, textDenominacao_txt.Text.Trim());
-                        swComands.SW_AddProperty(swCustProp, ppr.comprimento, Codigo_txt.Text + revisao_txt.Text.Trim());
-                        swComands.SW_AddProperty(swCustProp, ppr.material, Denominacao_txt.Text.Trim());
-                        swComands.SW_AddProperty(swCustProp, ppr.projetista, projetista_cb.Text.Trim());
-                        swComands.SW_AddProperty(swCustProp, ppr.projetistaData, projetistaData_txt.Text.Trim());
-                        swComands.SW_AddProperty(swCustProp, ppr.desenhista, desenhista_cb.Text.Trim());
-                        swComands.SW_AddProperty(swCustProp, ppr.desenhistaData, desenhistaData_txt.Text.Trim());
-                        swComands.SW_AddProperty(swCustProp, ppr.revisor, revisor_cb.Text.Trim());
-                        swComands.SW_AddProperty(swCustProp, ppr.revisorData, revisorData_txt.Text.Trim());
-                        swComands.SW_AddProperty(swCustProp, ppr.pbruto, pesobt_txt.Text.Trim());
-                        #endregion
-                    }
-                }
-                Atualizar_bt_Click(sender, e);
-            }
+            var saveService = new SaveService(swComands, ppr);
+            saveService.Save(swModel, data);
+
+            Atualizar_bt_Click(sender, e);
         }
 
         private void CRM_Control1_Click(object sender, EventArgs e)
